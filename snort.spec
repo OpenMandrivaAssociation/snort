@@ -3,14 +3,13 @@
 
 Summary:        An Intrusion Detection System (IDS)
 Name:           snort
-Version:        2.6.1.3
-Release:        %mkrel 2
+Version:        2.6.1.5
+Release:        %mkrel 1
 License:        GPL
 Group:          Networking/Other
 URL:            http://www.snort.org/
 Source0:        http://www.snort.org/dl/current/%{name}-%{version}.tar.gz
 Source1:        http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.sig
-Source2:        http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.md5
 Source3:        snort.init
 Source4:        snort.logrotate
 Source5:        snort.sysconfig
@@ -26,7 +25,7 @@ Patch1:         snort-2.6.0-lib64.diff
 # http://www.bleedingsnort.com/cgi-bin/viewcvs.cgi/*checkout*/snort-clamav/snort-2.6.0.2-clamav.diff?rev=1.4&root=Snort-Clamav
 Patch2:         snort-2.6.1.3-clamav.diff
 # (oe): make -L work as stated in the man page.
-Patch3:         snort-2.3.0-no_timestamp.diff
+Patch3:         snort-2.6.1.5-no_timestamp.diff
 # (oe) disable some code to make it build
 Patch4:         snort-2.3.0-net-snmp_fix.diff
 # (oe) http://www.snortsam.net/files/snort-plugin/snortsam-patch.tar.gz
@@ -339,7 +338,7 @@ close offending connections.
 perl -pi -e "s|cl_scanbuff|cl_scandesc|g" configure*
 %endif
 
-%patch3 -p0 -b .no_timestamp
+%patch3 -p1 -b .no_timestamp
 
 %if %with snmp
 %patch4 -p0 -b .net-snmp_fix
@@ -354,6 +353,7 @@ perl -pi -e "s|cl_scanbuff|cl_scandesc|g" configure*
 %{__cp} -a %{SOURCE6} .
 
 %build
+%serverbuild
 export WANT_AUTOCONF_2_5=1
 %{__rm} -f configure
 %{__libtoolize} --copy --force; %{__aclocal} -I m4; %{__automake} --foreign --add-missing --copy; %{__autoconf}

@@ -3,7 +3,7 @@
 
 Summary:        An Intrusion Detection System (IDS)
 Name:           snort
-Version:        2.6.1.5
+Version:        2.7.0.1
 Release:        %mkrel 1
 License:        GPL
 Group:          Networking/Other
@@ -18,7 +18,7 @@ Source6:        snortdb-extra
 # http://www.cysols.com/contrib/snortsnmp/index.html
 # http://www.cysol.co.jp/contrib/snortsnmp/SnortSnmpMod-2.2.0-01.tgz
 Patch0:         snort-2.6.0-SNMP.diff
-Patch1:         snort-2.6.0-lib64.diff
+Patch1:         snort-2.7.0.1-lib64.patch
 # OE: clamav support originates from:
 # http://sourceforge.net/tracker/download.php?group_id=78497&atid=553469&file_id=131549&aid=1184861
 # http://www.inliniac.net/blog/
@@ -330,7 +330,7 @@ close offending connections.
 %patch0 -p1 -b .SNMP
 %endif
 
-%patch1 -p0 -b .lib64
+%patch1 -p1 -b .lib64
 
 %if %with clamav
 %patch2 -p1 -b .clamav

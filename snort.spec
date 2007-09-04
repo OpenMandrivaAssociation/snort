@@ -60,8 +60,8 @@ BuildRequires:  clamav-devel >= 0.80
 #BuildRequires: automake1.7
 BuildRequires:  autoconf2.5
 BuildRequires:  latex2html
-BuildRequires:  libgnutls-devel
-BuildRequires:  libprelude-devel
+BuildRequires:  gnutls-devel
+BuildRequires:  prelude-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description

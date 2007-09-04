@@ -36,11 +36,11 @@ Requires(preun): rpm-helper snort-rules
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires:       pcre
-Requires:       libpcap >= 0.6
+Requires:       pcap >= 0.6
 Requires:       snort-rules
 BuildRequires:  autoconf
 BuildRequires:  automake1.7
-BuildRequires:  libpcap-devel >= 0.6
+BuildRequires:  pcap-devel >= 0.6
 %if %with snmp
 BuildRequires:  net-snmp-devel
 %endif
@@ -50,8 +50,8 @@ BuildRequires:  postgresql-devel
 BuildRequires:  texinfo
 BuildRequires:  zlib-devel
 BuildRequires:  pcre-devel
-BuildRequires:  libdnet-devel >= 1.10
-BuildRequires:  libnet1.0.2-devel
+BuildRequires:  dnet-devel >= 1.10
+BuildRequires:  net1.0-devel
 BuildRequires:  chrpath
 BuildRequires:  iptables-devel
 %if %with clamav

@@ -4,7 +4,7 @@
 Summary:        An Intrusion Detection System (IDS)
 Name:           snort
 Version:        2.7.0.1
-Release:        %mkrel 1
+Release:        %mkrel 2
 License:        GPL
 Group:          Networking/Other
 URL:            http://www.snort.org/
@@ -36,29 +36,27 @@ Requires(preun): rpm-helper snort-rules
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
 Requires:       pcre
-Requires:       pcap >= 0.6
+Requires:       pcap
 Requires:       snort-rules
-BuildRequires:  autoconf
+BuildRequires:  autoconf2.5
 BuildRequires:  automake1.7
-BuildRequires:  pcap-devel >= 0.6
+BuildRequires:  pcap-devel
 %if %with snmp
 BuildRequires:  net-snmp-devel
 %endif
-BuildRequires:  MySQL-devel >= 5.0
+BuildRequires:  MySQL-devel
 BuildRequires:  openssl-devel
 BuildRequires:  postgresql-devel
 BuildRequires:  texinfo
 BuildRequires:  zlib-devel
 BuildRequires:  pcre-devel
-BuildRequires:  dnet-devel >= 1.10
+BuildRequires:  dnet-devel
 BuildRequires:  net1.0-devel
 BuildRequires:  chrpath
 BuildRequires:  iptables-devel
 %if %with clamav
-BuildRequires:  clamav-devel >= 0.80
+BuildRequires:  clamav-devel
 %endif
-#BuildRequires: automake1.7
-BuildRequires:  autoconf2.5
 BuildRequires:  latex2html
 BuildRequires:  gnutls-devel
 BuildRequires:  prelude-devel
@@ -98,7 +96,7 @@ Please see the documentation in %{_docdir}/%{name}-%{version}
 %package        plain+flexresp
 Summary:        Snort with Flexible Response
 Group:          Networking/Other
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    plain+flexresp
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -115,7 +113,7 @@ offending connections.
 %package        mysql
 Summary:        Snort with MySQL database support
 Group:          Networking/Other
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    mysql
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -131,7 +129,7 @@ Snort compiled with mysql support.
 %package        mysql+flexresp
 Summary:        Snort with MySQL database and Flexible Response support
 Group:          Networking/Other
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    mysql+flexresp
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -148,7 +146,7 @@ close offending connections.
 %package        postgresql
 Summary:        Snort with PostgreSQL database support
 Group:          Networking/Other
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    postgresql
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -164,7 +162,7 @@ Snort compiled with postgresql support.
 %package        postgresql+flexresp
 Summary:        Snort with PostgreSQL database and Flexible Response support
 Group:          Networking/Other
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    postgresql+flexresp
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -181,7 +179,7 @@ actively close offending connections.
 %package        bloat
 Summary:        Snort with flexresp+mysql+postgresql+snmp+inline support
 Group:          Networking/Other
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    bloat
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -199,10 +197,10 @@ Summary:        Snort with Inline support
 Group:          Networking/Other
 Requires:       iptables
 %if %with clamav
-Requires:       clamav >= 0.80-1mdk
-Requires:       clamav-db >= 0.80-1mdk
+Requires:       clamav
+Requires:       clamav-db
 %endif
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    inline
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -222,10 +220,10 @@ Summary:        Snort with Inline and Flexible Response support
 Group:          Networking/Other
 Requires:       iptables
 %if %with clamav
-Requires:       clamav >= 0.80-1mdk
-Requires:       clamav-db >= 0.80-1mdk
+Requires:       clamav
+Requires:       clamav-db
 %endif
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    inline+flexresp
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -246,7 +244,7 @@ decisions based on snort rules.
 Summary:        Snort with SNMP support
 Group:          Networking/Other
 URL:            http://www.cysols.com/contrib/snortsnmp/index.html
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    snmp
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -269,7 +267,7 @@ systems.
 Summary:        Snort with SNMP and Flexible Response support
 Group:          Networking/Other
 URL:            http://www.cysols.com/contrib/snortsnmp/index.html
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    snmp+flexresp
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -293,7 +291,7 @@ systems.
 %package        prelude
 Summary:        Snort with Prelude support
 Group:          Networking/Other
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    prelude
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -309,7 +307,7 @@ Snort compiled with prelude support.
 %package        prelude+flexresp
 Summary:        Snort with Prelude and Flexible Response support
 Group:          Networking/Other
-Requires:       snort = %{version}
+Requires:       snort = %{version}-%{release}
 
 %description    prelude+flexresp
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -696,7 +694,6 @@ pushd building
 popd
 }
 
-[[ -f "%{name}.8.bz2" ]] || %{__bzip2} %{name}.8
 %{__install} %{name}.8* %{buildroot}%{_mandir}/man8
 %{__perl} -pi -e "s|var RULE_PATH ../rules|var RULE_PATH rules|" etc/%{name}.conf
 

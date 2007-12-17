@@ -60,7 +60,6 @@ BuildRequires:  clamav-devel
 BuildRequires:  latex2html
 BuildRequires:  gnutls-devel
 BuildRequires:  prelude-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 Snort is a libpcap-based packet sniffer/logger which can be used as a

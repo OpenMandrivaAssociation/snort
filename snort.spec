@@ -3,8 +3,8 @@
 
 Summary:        An Intrusion Detection System (IDS)
 Name:           snort
-Version:        2.7.0.1
-Release:        %mkrel 2
+Version:        2.8.0.1
+Release:        %mkrel 0.1
 License:        GPL
 Group:          Networking/Other
 URL:            http://www.snort.org/
@@ -24,13 +24,13 @@ Patch1:         snort-2.7.0.1-lib64.patch
 # http://www.inliniac.net/blog/
 # http://www.bleedingsnort.com/cgi-bin/viewcvs.cgi/*checkout*/snort-clamav/snort-2.6.0.2-clamav.diff?rev=1.4&root=Snort-Clamav
 Patch2:         snort-2.6.1.3-clamav.diff
-# (oe): make -L work as stated in the man page.
-Patch3:         snort-2.6.1.5-no_timestamp.diff
 # (oe) disable some code to make it build
 Patch4:         snort-2.3.0-net-snmp_fix.diff
-# (oe) http://www.snortsam.net/files/snort-plugin/snortsam-patch.tar.gz
-Patch5:         snort-2.6.0-snortsam.diff
-Patch7:         snort-2.6.1-plugins_fix.patch
+# (oe) http://www.snortsam.net/files/snort-plugin/snortsam-patch-2.8.tar.gz
+Patch5:         snort-snortsam.diff
+# (oe) http://marc.info/?l=snort-users&m=119099490314507&w=2
+Patch6:         snort-respond2.diff
+Patch7:         snort-plugins_fix.diff
 Requires(post): rpm-helper snort-rules
 Requires(preun): rpm-helper snort-rules
 Requires(pre): rpm-helper
@@ -44,7 +44,7 @@ BuildRequires:  pcap-devel
 %if %with snmp
 BuildRequires:  net-snmp-devel
 %endif
-BuildRequires:  MySQL-devel
+BuildRequires:  mysql-devel
 BuildRequires:  openssl-devel
 BuildRequires:  postgresql-devel
 BuildRequires:  texinfo
@@ -54,13 +54,15 @@ BuildRequires:  dnet-devel
 BuildRequires:  net1.0-devel
 BuildRequires:  chrpath
 BuildRequires:  iptables-devel
+BuildRequires:  flex
+BuildRequires:  bison
 %if %with clamav
 BuildRequires:  clamav-devel
 %endif
 BuildRequires:  latex2html
 BuildRequires:  gnutls-devel
 BuildRequires:  prelude-devel
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root
+Buildroot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -91,7 +93,7 @@ snmp(19)                snmp+flexresp(20)
 %endif
 prelude(21)             prelude+flexresp(22)
 
-Please see the documentation in %{_docdir}/%{name}-%{version}
+Please see the documentation in %{_docdir}/%{name}
 
 %package        plain+flexresp
 Summary:        Snort with Flexible Response
@@ -336,13 +338,14 @@ close offending connections.
 perl -pi -e "s|cl_scanbuff|cl_scandesc|g" configure*
 %endif
 
-%patch3 -p1 -b .no_timestamp
-
 %if %with snmp
 %patch4 -p0 -b .net-snmp_fix
 %endif
 
-%patch5 -p1 -b .snortsam
+# does not build atm
+#%patch5 -p1 -b .snortsam
+
+%patch6 -p1 -b .respond2
 %patch7 -p1 -b .plugins_fix
 
 # fix pid file path
@@ -353,8 +356,8 @@ perl -pi -e "s|cl_scanbuff|cl_scandesc|g" configure*
 %build
 %serverbuild
 export WANT_AUTOCONF_2_5=1
-%{__rm} -f configure
-%{__libtoolize} --copy --force; %{__aclocal} -I m4; %{__automake} --foreign --add-missing --copy; %{__autoconf}
+rm -f configure
+libtoolize --automake --copy --force; aclocal -I m4; autoheader; automake --foreign --add-missing --copy; autoconf
 
 # build snort
 %{__rm} -rf building && %{__mkdir_p} building && cd building
@@ -364,7 +367,7 @@ SNORT_BASE_CONFIG="--prefix=%{_prefix} \
     --mandir=%{_mandir} \
     --sysconfdir=%{_sysconfdir}/%{name} \
     --disable-prelude \
-    --enable-snortsam \
+    --disable-snortsam \
     --enable-shared \
     --enable-pthread \
     --enable-rulestate \
@@ -372,6 +375,8 @@ SNORT_BASE_CONFIG="--prefix=%{_prefix} \
     --enable-timestats \
     --enable-perfprofiling \
     --enable-linux-smp-stats \
+    --enable-ppm \
+    --enable-decoder-preprocessor-rules \
     --cache-file=../../config.cache"
 
 %if %with snmp
@@ -673,6 +678,7 @@ cd ..
 %{__rm} -rf %{buildroot}%{_prefix}/src
 %{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicengine/*.{a,la}
 %{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicpreprocessor/*.{a,la}
+%{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicrules/*.{a,la}
 
 {
 pushd building
@@ -700,7 +706,7 @@ popd
 %{__install} -m0644 etc/*.conf %{buildroot}%{_sysconfdir}/%{name}/
 %{__install} -m0644 etc/*.config %{buildroot}%{_sysconfdir}/%{name}/
 %{__install} -m0644 etc/*.map %{buildroot}%{_sysconfdir}/%{name}/
-%{__install} -m0644 etc/generators %{buildroot}%{_sysconfdir}/%{name}/
+#%{__install} -m0644 etc/generators %{buildroot}%{_sysconfdir}/%{name}/
 #%{__install} -m0644 rules/*.rules %{buildroot}%{_sysconfdir}/%{name}/rules/
 
 %{__install} -m0755 %{SOURCE3} %{buildroot}%{_initrddir}/snort
@@ -816,7 +822,8 @@ fi
 %doc doc/README doc/README.alert_order doc/README.asn1 doc/README.csv doc/README.database doc/README.event_queue
 %doc doc/README.FLEXRESP doc/README.flow doc/README.flowbits doc/README.flow-portscan doc/README.http_inspect doc/README.PLUGINS
 %doc doc/README.sfportscan doc/README.thresholding doc/README.UNSOCK doc/README.wireless snortdb-extra
-%doc doc/*.pdf doc/*.tex doc/CRYPTIX-LICENSE.TXT doc/README.sam
+%doc doc/*.pdf doc/*.tex
+#%doc %doc doc/CRYPTIX-LICENSE.TXT doc/README.sam
 # latex2html is borked...
 #%doc  doc/snort_manual doc/faq
 %attr(0755,root,root) %{_sbindir}/%{name}-plain
@@ -831,19 +838,22 @@ fi
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/*.map
 #%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/rules/*.rules
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/generators
+#%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/generators
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %attr(0755,root,root) %{_initrddir}/snort
 %attr(0755,root,root) %dir %{_libdir}/%{name}
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicengine
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicpreprocessor
+%attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicrules
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicengine/libsf_engine.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dcerpc_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dns_preproc.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/lib_sfdynamic_preprocessor_example.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ftptelnet_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_smtp_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ssh_preproc.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicrules/lib_sfdynamic_example_rule.so
 
 %files plain+flexresp
 %defattr(-,root,root)
@@ -908,5 +918,3 @@ fi
 %files prelude+flexresp
 %defattr(-,root,root)
 %attr(0755,root,root) %{_sbindir}/%{name}-prelude+flexresp
-
-

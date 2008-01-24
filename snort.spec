@@ -4,8 +4,8 @@
 Summary:        An Intrusion Detection System (IDS)
 Name:           snort
 Version:        2.8.0.1
-Release:        %mkrel 0.1
-License:        GPL
+Release:        %mkrel 0.2
+License:        GPLv2+
 Group:          Networking/Other
 URL:            http://www.snort.org/
 Source0:        http://www.snort.org/dl/current/%{name}-%{version}.tar.gz

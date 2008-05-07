@@ -1,12 +1,12 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
-Version:	2.8.1
-Release:	%mkrel 1
+Version:	2.8.2
+Release:	%mkrel 0.rc1.1
 License:	GPLv2+
 Group:		Networking/Other
 URL:		http://www.snort.org/
-Source0:	http://www.snort.org/dl/current/%{name}-%{version}.tar.gz
-Source1:	http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.sig
+Source0:	http://www.snort.org/dl/current/%{name}-%{version}.rc1.tar.gz
+Source1:	http://www.snort.org/dl/current/%{name}-%{version}.rc1.tar.gz.sig
 Source3:	snort.init
 Source4:	snort.logrotate
 Source5:	snort.sysconfig
@@ -243,7 +243,7 @@ close offending connections.
 
 %prep
 
-%setup -q
+%setup -q -n %{name}-%{version}.rc1
 %patch0 -p0 -b .lib64
 %patch1 -p1 -b .snortsam
 %patch2 -p1 -b .plugins_fix

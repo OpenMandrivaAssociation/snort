@@ -1,12 +1,12 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
-Version:	2.8.2
-Release:	%mkrel 0.rc1.2
+Version:	2.8.2.1
+Release:	%mkrel 1
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
-Source0:	http://www.snort.org/dl/current/%{name}-%{version}.rc1.tar.gz
-Source1:	http://www.snort.org/dl/current/%{name}-%{version}.rc1.tar.gz.sig
+Source0:	http://www.snort.org/dl/current/%{name}-%{version}.tar.gz
+Source1:	http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.sig
 Source3:	snort.init
 Source4:	snort.logrotate
 Source5:	snort.sysconfig
@@ -15,6 +15,7 @@ Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
 Patch1:		snort-snortsam.diff
 Patch2:		snort-plugins_fix.diff
+Patch3:		snort-open_with_O_CREAT_in_second_argument_needs_3_arguments.diff
 Requires(post): rpm-helper snort-rules
 Requires(preun): rpm-helper snort-rules
 Requires(pre): rpm-helper
@@ -243,10 +244,11 @@ close offending connections.
 
 %prep
 
-%setup -q -n %{name}-%{version}.rc1
+%setup -q -n %{name}-%{version}
 %patch0 -p0 -b .lib64
 %patch1 -p1 -b .snortsam
 %patch2 -p1 -b .plugins_fix
+%patch3 -p0 -b .open_with_O_CREAT_in_second_argument_needs_3_arguments
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h

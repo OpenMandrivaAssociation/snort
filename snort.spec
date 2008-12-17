@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
 Version:	2.8.3.1
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -16,6 +16,7 @@ Patch0:		snort-lib64.diff
 Patch1:		snort-snortsam.diff
 Patch2:		snort-plugins_fix.diff
 Patch3:		snort-open_with_O_CREAT_in_second_argument_needs_3_arguments.diff
+Patch4:		snort-2.8.3.1-format_not_a_string_literal_and_no_format_arguments.diff
 Requires(post): rpm-helper snort-rules
 Requires(preun): rpm-helper snort-rules
 Requires(pre): rpm-helper
@@ -249,6 +250,7 @@ close offending connections.
 %patch1 -p1 -b .snortsam
 %patch2 -p1 -b .plugins_fix
 %patch3 -p0 -b .open_with_O_CREAT_in_second_argument_needs_3_arguments
+%patch4 -p0 -b .format_not_a_string_literal_and_no_format_arguments
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h

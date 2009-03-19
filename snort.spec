@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
 Version:	2.8.3.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -11,9 +11,11 @@ Source3:	snort.init
 Source4:	snort.logrotate
 Source5:	snort.sysconfig
 Source6:	snortdb-extra
+Source7:        twofish.h
+Source8:        twofish.c
 Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
-Patch1:		snort-snortsam.diff
+Patch1:		snortsam-2.8.3.diff
 Patch2:		snort-plugins_fix.diff
 Patch3:		snort-open_with_O_CREAT_in_second_argument_needs_3_arguments.diff
 Patch4:		snort-2.8.3.1-format_not_a_string_literal_and_no_format_arguments.diff
@@ -252,6 +254,10 @@ close offending connections.
 %patch3 -p0 -b .open_with_O_CREAT_in_second_argument_needs_3_arguments
 %patch4 -p0 -b .format_not_a_string_literal_and_no_format_arguments
 
+%{__cp} -f %{SOURCE7} src/
+%{__cp} -f %{SOURCE8} src/
+
+
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h
 
@@ -271,7 +277,7 @@ SNORT_BASE_CONFIG="--prefix=%{_prefix} \
     --mandir=%{_mandir} \
     --sysconfdir=%{_sysconfdir}/%{name} \
     --disable-prelude \
-    --disable-snortsam \
+    --enable-snortsam \
     --enable-shared \
     --enable-pthread \
     --enable-rulestate \

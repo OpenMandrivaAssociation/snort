@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
-Version:	2.8.3.2
-Release:	%mkrel 3
+Version:	2.8.4
+Release:	%mkrel 1
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -15,10 +15,9 @@ Source7:        twofish.h
 Source8:        twofish.c
 Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
-Patch1:		snortsam-2.8.3.diff
+Patch1:		snortsam-2.8.4.diff
 Patch2:		snort-plugins_fix.diff
-Patch3:		snort-open_with_O_CREAT_in_second_argument_needs_3_arguments.diff
-Patch4:		snort-2.8.3.1-format_not_a_string_literal_and_no_format_arguments.diff
+Patch3:		snort-2.8.4-snortsam_buildfix.diff
 Requires(post): rpm-helper snort-rules
 Requires(preun): rpm-helper snort-rules
 Requires(pre): rpm-helper
@@ -252,8 +251,7 @@ close offending connections.
 %patch0 -p0 -b .lib64
 %patch1 -p1 -b .snortsam
 %patch2 -p1 -b .plugins_fix
-%patch3 -p0 -b .open_with_O_CREAT_in_second_argument_needs_3_arguments
-%patch4 -p0 -b .format_not_a_string_literal_and_no_format_arguments
+%patch3 -p0 -b .snortsam_buildfix
 
 %{__cp} -f %{SOURCE7} src/
 %{__cp} -f %{SOURCE8} src/
@@ -632,14 +630,14 @@ fi
 
 %files
 %defattr(-,root,root)
-%doc COPYING ChangeLog RELEASE.NOTES 
+%doc COPYING ChangeLog RELEASE.NOTES
 %doc doc/AUTHORS doc/BUGS doc/CREDITS doc/generators doc/INSTALL doc/NEWS doc/PROBLEMS doc/README
 %doc doc/README.alert_order doc/README.ARUBA doc/README.asn1 doc/README.csv doc/README.database
 %doc doc/README.dcerpc doc/README.decode doc/README.dns doc/README.event_queue doc/README.FLEXRESP
-%doc doc/README.FLEXRESP2 doc/README.flow doc/README.flowbits doc/README.flow-portscan doc/README.frag3
+%doc doc/README.FLEXRESP2 doc/README.flowbits doc/README.frag3
 %doc doc/README.ftptelnet doc/README.gre doc/README.http_inspect doc/README.ipip
 %doc doc/README.ipv6 doc/README.pcap_readmode doc/README.PerfProfiling doc/README.PLUGINS doc/README.ppm
-%doc doc/README.sfportscan doc/README.SMTP doc/README.ssh doc/README.ssl doc/README.stream4
+%doc doc/README.sfportscan doc/README.SMTP doc/README.ssh doc/README.ssl
 %doc doc/README.stream5 doc/README.tag doc/README.thresholding doc/README.UNSOCK doc/README.variables
 %doc doc/README.WIN32 doc/README.wireless doc/TODO doc/USAGE doc/WISHLIST
 %doc doc/*.pdf doc/*.tex
@@ -665,6 +663,7 @@ fi
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicpreprocessor
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicrules
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicengine/libsf_engine.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dce2_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dcerpc_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dns_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/lib_sfdynamic_preprocessor_example.so

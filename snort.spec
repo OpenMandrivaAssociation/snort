@@ -653,6 +653,8 @@ fi
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %attr(0755,root,root) %{_initrddir}/snort
+%attr(0755,root,root) %dir %{_libdir}/pkgconfig
+%attr(0644,root,root) %{_libdir}/pkgconfig/snort.pc
 %attr(0755,root,root) %dir %{_libdir}/%{name}
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicengine
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicpreprocessor

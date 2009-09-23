@@ -508,7 +508,7 @@ cd ..
 %{__rm} -rf %{buildroot}%{_prefix}/src
 %{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicengine/*.{a,la}
 %{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicpreprocessor/*.{a,la}
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicrules/*.{a,la}
+##%{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicrules/*.{a,la}
 
 {
 pushd building
@@ -656,7 +656,7 @@ fi
 %attr(0755,root,root) %dir %{_libdir}/%{name}
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicengine
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicpreprocessor
-%attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicrules
+##%attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicrules
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicengine/libsf_engine.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dce2_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dcerpc_preproc.so
@@ -666,7 +666,7 @@ fi
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_smtp_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ssh_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ssl_preproc.so
-%attr(0755,root,root) %{_libdir}/%{name}/dynamicrules/lib_sfdynamic_example_rule.so
+##%attr(0755,root,root) %{_libdir}/%{name}/dynamicrules/lib_sfdynamic_example_rule.so
 
 %files plain+flexresp
 %defattr(-,root,root)

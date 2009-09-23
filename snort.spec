@@ -661,7 +661,7 @@ fi
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dce2_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dcerpc_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dns_preproc.so
-%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/lib_sfdynamic_preprocessor_example.so
+#%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/lib_sfdynamic_preprocessor_example.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ftptelnet_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_smtp_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ssh_preproc.so

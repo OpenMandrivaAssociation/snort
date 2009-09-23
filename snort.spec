@@ -15,6 +15,7 @@ Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
 Patch1:		snortsam-2.8.5-dlucio.diff
 Patch2:		snort-plugins_fix.diff
+Patch3:		snort-2.8.5-werror_antibork.diff
 Requires(post): rpm-helper snort-rules
 Requires(preun): rpm-helper snort-rules
 Requires(pre): rpm-helper
@@ -248,6 +249,7 @@ close offending connections.
 %patch0 -p0 -b .lib64
 %patch1 -p1 -b .snortsam
 %patch2 -p1 -b .plugins_fix
+%patch3 -p0 -b .werror_antibork
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h

@@ -13,7 +13,7 @@ Source5:	snort.sysconfig
 Source6:	snortdb-extra
 Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
-Patch1:		snortsam-2.8.4.1-babak.diff
+Patch1:		snortsam-2.8.5-dlucio.diff
 Patch2:		snort-plugins_fix.diff
 Requires(post): rpm-helper snort-rules
 Requires(preun): rpm-helper snort-rules

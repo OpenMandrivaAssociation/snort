@@ -34,7 +34,7 @@ BuildRequires:	zlib-devel
 BuildRequires:	pcre-devel
 BuildRequires:	dnet-devel
 #BuildRequires:	net1.0-devel
-BuildRequires: net1.1-devel
+BuildRequires:	net1.1.2-devel
 BuildRequires:	chrpath
 BuildRequires:	iptables-devel
 BuildRequires:	flex

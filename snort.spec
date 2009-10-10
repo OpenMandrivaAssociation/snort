@@ -16,6 +16,7 @@ Patch0:		snort-lib64.diff
 Patch1:		snortsam-2.8.5-dlucio.diff
 Patch2:		snort-plugins_fix.diff
 Patch3:		snort-2.8.5-werror_antibork.diff
+Patch4:		snort-2.8.5-missing-header.patch
 Requires(post): rpm-helper snort-rules
 Requires(preun): rpm-helper snort-rules
 Requires(pre): rpm-helper
@@ -250,6 +251,7 @@ close offending connections.
 %patch1 -p1 -b .snortsam
 %patch2 -p1 -b .plugins_fix
 %patch3 -p0 -b .werror_antibork
+%patch4 -p1
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h

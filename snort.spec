@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
 Version:	2.8.5
-Release:	%mkrel 4
+Release:	%mkrel 5
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -251,7 +251,7 @@ close offending connections.
 %patch1 -p1 -b .snortsam
 %patch2 -p1 -b .plugins_fix
 %patch3 -p0 -b .werror_antibork
-%patch4 -p1
+#%patch4 -p1
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h

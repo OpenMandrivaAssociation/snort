@@ -42,7 +42,7 @@ BuildRequires:	bison
 BuildRequires:	latex2html
 BuildRequires:	gnutls-devel
 BuildRequires:	prelude-devel
-BuildRequires:	ipq-devel
+BuildRequires:	iptables-ipq-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Suggests:	snortsam
 

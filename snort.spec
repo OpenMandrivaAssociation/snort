@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
-Version:	2.8.5.3
-Release:	%mkrel 4
+Version:	2.8.6
+Release:	%mkrel 1
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -13,8 +13,8 @@ Source5:	snort.sysconfig
 Source6:	snortdb-extra
 Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
-Patch1:		snortsam-2.8.5-dlucio.diff
-Patch2:		snort-plugins_fix.diff
+Patch1:		snortsam-2.8.6-dlucio.diff
+Patch2:		snort-2.8.6-plugins_fix.diff
 Patch3:		snort-2.8.5-werror_antibork.diff
 Patch4:		snort-2.8.5-missing-header.patch
 Requires(post): rpm-helper snort-rules
@@ -284,7 +284,8 @@ SNORT_BASE_CONFIG="--prefix=%{_prefix} \
     --enable-ppm \
     --enable-decoder-preprocessor-rules \
     --cache-file=../../config.cache \
-    --enable-reload"
+    --enable-reload \
+    --enable-zip"
 
 # there are some strange configure errors
 # when not doing a distclean between major builds.
@@ -511,7 +512,7 @@ cd ..
 %{__rm} -rf %{buildroot}%{_prefix}/src
 %{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicengine/*.{a,la}
 %{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicpreprocessor/*.{a,la}
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicrules/*.{a,la}
+#%{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicrules/*.{a,la}
 
 {
 pushd building
@@ -661,17 +662,19 @@ fi
 %attr(0755,root,root) %dir %{_libdir}/%{name}
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicengine
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicpreprocessor
-%attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicrules
+#%attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicrules
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicengine/libsf_engine.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dce2_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dcerpc_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dns_preproc.so
-%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/lib_sfdynamic_preprocessor_example.so
+#%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/lib_sfdynamic_preprocessor_example.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ftptelnet_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_smtp_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ssh_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ssl_preproc.so
-%attr(0755,root,root) %{_libdir}/%{name}/dynamicrules/lib_sfdynamic_example_rule.so
+#%attr(0755,root,root) %{_libdir}/%{name}/dynamicrules/lib_sfdynamic_example_rule.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_sdf_preproc.so
+
 
 %files plain+flexresp
 %defattr(-,root,root)

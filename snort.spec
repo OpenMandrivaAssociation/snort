@@ -1,6 +1,6 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
-Version:	2.8.6.1
+Version:	2.9.0
 Release:	%mkrel 1
 License:	GPLv2
 Group:		Networking/Other
@@ -13,8 +13,8 @@ Source5:	snort.sysconfig
 Source6:	snortdb-extra
 Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
-Patch1:		snortsam-2.8.6-dlucio.diff
-Patch2:		snort-2.8.6-plugins_fix.diff
+Patch1:		snortsam-2.9.0-dlucio.diff
+Patch2:		snort-2.9.0-plugins_fix.diff
 Patch3:		snort-2.8.5-werror_antibork.diff
 Patch4:		snort-2.8.5-missing-header.patch
 Requires(post): rpm-helper snort-rules
@@ -43,6 +43,7 @@ BuildRequires:	latex2html
 BuildRequires:	gnutls-devel
 BuildRequires:	prelude-devel
 BuildRequires:	iptables-ipq-devel
+BuildRequires:	daq-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Suggests:	snortsam
 
@@ -273,19 +274,26 @@ SNORT_BASE_CONFIG="--prefix=%{_prefix} \
     --mandir=%{_mandir} \
     --sysconfdir=%{_sysconfdir}/%{name} \
     --disable-prelude \
-    --enable-snortsam \
     --enable-shared \
     --enable-pthread \
-    --enable-rulestate \
     --enable-dynamicplugin \
-    --enable-timestats \
     --enable-perfprofiling \
     --enable-linux-smp-stats \
+    --disable-static-daq \
     --enable-ppm \
     --enable-decoder-preprocessor-rules \
     --cache-file=../../config.cache \
     --enable-reload \
-    --enable-zip"
+    --enable-reload-error-restart \
+    --enable-zlib \
+    --enable-mpls \
+    --enable-targetbased \
+    --enable-perfprofiling \
+    --enable-active-response \
+    --enable-normalizer \
+    --enable-react \
+    --with-daq-includes=%{_includedir} \
+    --with-daq-libraries=%{_libdir}"
 
 # there are some strange configure errors
 # when not doing a distclean between major builds.
@@ -312,7 +320,7 @@ cd ..
     --without-postgresql --disable-postgresql \
     --without-oracle --disable-oracle \
     --without-odbc --disable-odbc \
-    --enable-flexresp2 \
+    --enable-flexresp3 \
     --with-dnet-includes=%{_includedir} \
     --with-dnet-libraries=%{_libdir} \
     --without-inline --disable-inline
@@ -326,11 +334,12 @@ cd ..
 {
 %{__mkdir_p} mysql+flexresp; cd mysql+flexresp
 ../../configure $SNORT_BASE_CONFIG \
-    --with-mysql=%{_prefix} \
+    --with-mysql-includes=%{_includedir} \
+    --with-mysql-libraries=%{_libdir} \
     --without-postgresql --disable-postgresql \
     --without-oracle --disable-oracle \
     --without-odbc --disable-odbc \
-    --enable-flexresp2 \
+    --enable-flexresp3 \
     --with-dnet-includes=%{_includedir} \
     --with-dnet-libraries=%{_libdir} \
     --without-inline --disable-inline
@@ -344,7 +353,8 @@ cd ..
 {
 %{__mkdir_p} mysql; cd mysql
 ../../configure $SNORT_BASE_CONFIG \
-    --with-mysql=%{_prefix} \
+    --with-mysql-includes=%{_includedir} \
+    --with-mysql-libraries=%{_libdir} \
     --without-postgresql --disable-postgresql \
     --without-oracle --disable-oracle \
     --without-odbc --disable-odbc \
@@ -363,7 +373,7 @@ cd ..
     --with-postgresql=%{_prefix} \
     --without-oracle --disable-oracle \
     --without-odbc --disable-odbc \
-    --enable-flexresp2 \
+    --enable-flexresp3 \
     --with-dnet-includes=%{_includedir} \
     --with-dnet-libraries=%{_libdir} \
     --without-inline --disable-inline
@@ -392,12 +402,13 @@ cd ..
 {
 %{__mkdir_p} bloat; cd bloat
 ../../configure $SNORT_BASE_CONFIG \
-    --with-mysql=%{_prefix} \
+    --with-mysql-includes=%{_includedir} \
+    --with-mysql-libraries=%{_libdir} \
     --with-postgresql=%{_prefix} \
     --without-oracle --disable-oracle \
     --without-odbc --disable-odbc \
     --with-openssl=%{_prefix} \
-    --enable-flexresp2 \
+    --enable-flexresp3 \
     --with-dnet-includes=%{_includedir} \
     --with-dnet-libraries=%{_libdir} \
     --with-inline --enable-inline \
@@ -435,7 +446,7 @@ cd ..
     --without-postgresql --disable-postgresql \
     --without-oracle --disable-oracle \
     --without-odbc --disable-odbc \
-    --enable-flexresp2 \
+    --enable-flexresp3 \
     --with-dnet-includes=%{_includedir} \
     --with-dnet-libraries=%{_libdir} \
     --with-inline --enable-inline \
@@ -456,7 +467,7 @@ cd ..
     --without-postgresql --disable-postgresql \
     --without-oracle --disable-oracle \
     --without-odbc --disable-odbc \
-    --enable-flexresp2 \
+    --enable-flexresp3 \
     --with-dnet-includes=%{_includedir} \
     --with-dnet-libraries=%{_libdir} \
     --without-inline --disable-inline
@@ -632,18 +643,21 @@ fi
 %doc COPYING ChangeLog RELEASE.NOTES
 %doc doc/AUTHORS doc/BUGS doc/CREDITS doc/generators doc/INSTALL doc/NEWS doc/PROBLEMS doc/README
 %doc doc/README.alert_order doc/README.ARUBA doc/README.asn1 doc/README.csv doc/README.database
-%doc doc/README.dcerpc doc/README.decode doc/README.dns doc/README.event_queue doc/README.FLEXRESP
-%doc doc/README.FLEXRESP2 doc/README.flowbits doc/README.frag3
-%doc doc/README.ftptelnet doc/README.gre doc/README.http_inspect doc/README.ipip
+%doc doc/README.dcerpc2 doc/README.decode doc/README.dns doc/README.event_queue 
+%doc doc/README.flowbits doc/README.frag3 doc/README.daq doc/README.decoder_preproc_rules doc/README.reload
+%doc doc/README.ftptelnet doc/README.gre doc/README.http_inspect doc/README.ipip doc/README.filters
 %doc doc/README.ipv6 doc/README.pcap_readmode doc/README.PerfProfiling doc/README.PLUGINS doc/README.ppm
-%doc doc/README.sfportscan doc/README.SMTP doc/README.ssh doc/README.ssl
+%doc doc/README.sfportscan doc/README.SMTP doc/README.ssh doc/README.ssl doc/README.multipleconfigs
 %doc doc/README.stream5 doc/README.tag doc/README.thresholding doc/README.UNSOCK doc/README.variables
-%doc doc/README.WIN32 doc/README.wireless doc/TODO doc/USAGE doc/WISHLIST
+%doc doc/README.WIN32 doc/TODO doc/USAGE doc/WISHLIST doc/README.active 
+%doc doc/README.sensitive_data 
 %doc doc/*.pdf doc/*.tex
 #%doc %doc doc/CRYPTIX-LICENSE.TXT doc/README.sam
 # latex2html is borked...
 #%doc  doc/snort_manual doc/faq
 %attr(0755,root,root) %{_sbindir}/%{name}-plain
+%attr(0755,root,root) %{_bindir}/u2boat
+%attr(0755,root,root) %{_bindir}/u2spewfoo
 %attr(0755,root,root) %{_mandir}/man8/%{name}.8*
 %attr(0755,snort,snort) %dir /var/log/%{name}
 %attr(0755,snort,snort) %dir /var/log/%{name}/empty
@@ -665,7 +679,7 @@ fi
 #%attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicrules
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicengine/libsf_engine.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dce2_preproc.so
-%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dcerpc_preproc.so
+#attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dcerpc_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dns_preproc.so
 #%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/lib_sfdynamic_preprocessor_example.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ftptelnet_preproc.so
@@ -706,12 +720,10 @@ fi
 
 %files inline
 %defattr(-,root,root)
-%doc doc/README.INLINE
 %attr(0755,root,root) %{_sbindir}/%{name}-inline
 
 %files inline+flexresp
 %defattr(-,root,root)
-%doc doc/README.INLINE
 %attr(0755,root,root) %{_sbindir}/%{name}-inline+flexresp
 
 %files prelude

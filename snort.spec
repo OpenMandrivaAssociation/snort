@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
 Version:	2.9.0.3
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -25,7 +25,7 @@ Requires:	pcre
 Requires:	pcap
 Requires:	snort-rules
 BuildRequires:	autoconf2.5
-BuildRequires:	automake1.7
+BuildRequires:	automake
 BuildRequires:	pcap-devel
 BuildRequires:	mysql-devel
 BuildRequires:	openssl-devel

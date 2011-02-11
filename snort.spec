@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
-Version:	2.9.0.3
-Release:	%mkrel 4
+Version:	2.9.0.4
+Release:	%mkrel 1
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -294,6 +294,9 @@ SNORT_BASE_CONFIG="--prefix=%{_prefix} \
     --enable-react \
     --with-daq-includes=%{_includedir} \
     --with-daq-libraries=%{_libdir}"
+
+# Will be, when I port razorback into Mandriva/Mageia
+#    --enable-rzb-saac"
 
 # there are some strange configure errors
 # when not doing a distclean between major builds.

@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
 Version:	2.9.0.4
-Release:	%mkrel 3
+Release:	%mkrel 4
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -285,7 +285,9 @@ SNORT_BASE_CONFIG="--prefix=%{_prefix} \
     --cache-file=../../config.cache \
     --enable-reload \
     --enable-reload-error-restart \
+    --enable-ipv6 \
     --enable-zlib \
+    --enable-gre \
     --enable-mpls \
     --enable-targetbased \
     --enable-perfprofiling \

@@ -1,12 +1,12 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
-Version:	2.9.0.5
+Version:	2.9.1
 Release:	%mkrel 1
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
 Source0:	http://www.snort.org/dl/current/%{name}-%{version}.tar.gz
-#Source1:	http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.sig
+Source1:	http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.sig
 Source3:	snort.init
 Source4:	snort.logrotate
 Source5:	snort.sysconfig
@@ -14,7 +14,7 @@ Source6:	snortdb-extra
 Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
 Patch1:		snortsam-2.9.0-dlucio.diff
-Patch2:		snort-2.9.0-plugins_fix.diff
+Patch2:		snort-2.9.1-plugins_fix.diff
 Patch3:		snort-2.8.5-werror_antibork.diff
 Patch4:		snort-2.8.5-missing-header.patch
 Requires(post): rpm-helper snort-rules
@@ -24,6 +24,7 @@ Requires(postun): rpm-helper
 Requires:	pcre
 Requires:	pcap
 Requires:	snort-rules
+BuildRequires:	pkgconfig
 BuildRequires:	autoconf2.5
 BuildRequires:	automake
 BuildRequires:	pcap-devel
@@ -40,6 +41,7 @@ BuildRequires:	iptables-devel
 BuildRequires:	flex
 BuildRequires:	bison
 BuildRequires:	latex2html
+BuildRequires:	libgcrypt-devel
 BuildRequires:	gnutls-devel
 BuildRequires:	prelude-devel
 BuildRequires:	iptables-ipq-devel
@@ -246,6 +248,23 @@ separate "alert" file, or as a WinPopup message via Samba's smbclient
 Snort compiled with prelude+flexresp support. FlexResp allows snort to actively
 close offending connections.
 
+%package        devel
+Summary:        Snort development files
+Group:          Networking/Other
+Requires:       snort = %{version}
+
+%description    devel
+Snort is a libpcap-based packet sniffer/logger which can be used as a
+lightweight network intrusion detection system. It features rules based logging
+and can perform protocol analysis, content searching/matching and can be used
+to detect a variety of attacks and probes, such as buffer overflows, stealth
+port scans, CGI attacks, SMB probes, OS fingerprinting attempts, and much more.
+Snort has a real-time alerting capabilty, with alerts being sent to syslog, a
+separate "alert" file, or as a WinPopup message via Samba's smbclient
+
+This are snort H files.
+
+
 %prep
 
 %setup -q -n %{name}-%{version}
@@ -285,9 +304,7 @@ SNORT_BASE_CONFIG="--prefix=%{_prefix} \
     --cache-file=../../config.cache \
     --enable-reload \
     --enable-reload-error-restart \
-    --enable-ipv6 \
     --enable-zlib \
-    --enable-gre \
     --enable-mpls \
     --enable-targetbased \
     --enable-perfprofiling \
@@ -524,11 +541,12 @@ cd ..
 %{makeinstall_std} -C building/plain
 
 # cleanup
-%{__rm} -f %{buildroot}%{_bindir}/%{name}
+%{__rm} -f  %{buildroot}%{_bindir}/%{name}
 %{__rm} -rf %{buildroot}%{_prefix}/src
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicengine/*.{a,la}
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicpreprocessor/*.{a,la}
+%{__rm} -f  %{buildroot}%{_libdir}/%{name}/dynamicengine/*.{a,la}
+%{__rm} -f  %{buildroot}%{_libdir}/%{name}/dynamicpreprocessor/*.{a,la}
 #%{__rm} -f %{buildroot}%{_libdir}/%{name}/dynamicrules/*.{a,la}
+%{__rm} -f  %{buildroot}%{_libdir}/%{name}/dynamic_preproc/*.{a,la}
 
 {
 pushd building
@@ -676,8 +694,6 @@ fi
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 %attr(0755,root,root) %{_initrddir}/snort
-%attr(0755,root,root) %dir %{_libdir}/pkgconfig
-%attr(0644,root,root) %{_libdir}/pkgconfig/snort.pc
 %attr(0755,root,root) %dir %{_libdir}/%{name}
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicengine
 %attr(0755,root,root) %dir %{_libdir}/%{name}/dynamicpreprocessor
@@ -693,7 +709,10 @@ fi
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_ssl_preproc.so
 #%attr(0755,root,root) %{_libdir}/%{name}/dynamicrules/lib_sfdynamic_example_rule.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_sdf_preproc.so
-
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_imap_preproc.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_pop_preproc.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_reputation_preproc.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_sip_preproc.so
 
 %files plain+flexresp
 %defattr(-,root,root)
@@ -738,4 +757,25 @@ fi
 %files prelude+flexresp
 %defattr(-,root,root)
 %attr(0755,root,root) %{_sbindir}/%{name}-prelude+flexresp
+
+%files devel
+%defattr(-,root,root)
+%attr(0755,root,root) %dir %{_libdir}/pkgconfig
+%attr(0644,root,root) %{_libdir}/pkgconfig/snort.pc
+%attr(0644,root,root) %{_libdir}/pkgconfig/snort_preproc.pc
+%attr(0755,root,root) %dir %{_includedir}/%{name}/dynamic_preproc
+%attr(0644,root,root) %{_includedir}/%{name}/dynamic_preproc/*.h
+
+
+
+%changelog
+* Tue Aug 02 2011 fwang <fwang> 2.9.0.5-3.mga2
++ Revision: 131417
+- rebuild for new gnutls
+
+  + dlucio <dlucio>
+    - 2.9.0.5
+    - 2.9.0.5
+    - 2.9.0.4
+    - imported package snort
 

@@ -13,7 +13,7 @@ Source5:	snort.sysconfig
 Source6:	snortdb-extra
 Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
-Patch1:		snortsam-2.9.0-dlucio.diff
+Patch1:		snortsam-2.9.1.1-dlucio.diff
 Patch2:		snort-2.9.1-plugins_fix.diff
 Patch3:		snort-2.8.5-werror_antibork.diff
 Patch4:		snort-2.8.5-missing-header.patch

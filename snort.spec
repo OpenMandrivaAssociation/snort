@@ -14,7 +14,7 @@ Source6:	snortdb-extra
 Patch0:		snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
 Patch1:		snortsam-2.9.1.1-dlucio.diff
-Patch2:		snort-2.9.1-plugins_fix.diff
+Patch2:		snort-2.9.2.1-plugins_fix.diff
 Patch3:		snort-2.8.5-werror_antibork.diff
 Patch4:		snort-2.8.5-missing-header.patch
 Requires(post): rpm-helper snort-rules
@@ -713,6 +713,9 @@ fi
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_pop_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_reputation_preproc.so
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_sip_preproc.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dnp3_preproc.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_gtp_preproc.so
+%attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_modbus_preproc.so
 
 %files plain+flexresp
 %defattr(-,root,root)

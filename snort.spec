@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
-Version:	2.9.1.2
-Release:	%mkrel 2
+Version:	2.9.2.1
+Release:	%mkrel 1
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -268,7 +268,7 @@ This are snort H files.
 %prep
 
 %setup -q -n %{name}-%{version}
-%patch0 -p0 -b .lib64
+%patch0 -p1 -b .lib64
 %patch1 -p1 -b .snortsam
 %patch2 -p1 -b .plugins_fix
 %patch3 -p0 -b .werror_antibork

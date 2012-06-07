@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
-Version:	2.9.2.1
-Release:	%mkrel 2
+Version:	2.9.2.3
+Release:	1	
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -46,7 +46,6 @@ BuildRequires:	gnutls-devel
 BuildRequires:	prelude-devel
 BuildRequires:	iptables-ipq-devel
 BuildRequires:	daq-devel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Suggests:	snortsam
 
 %description
@@ -658,11 +657,7 @@ fi
 %postun prelude+flexresp
 %{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-prelude+flexresp
 
-%clean
-%{__rm} -rf %{buildroot} 
-
 %files
-%defattr(-,root,root)
 %doc COPYING ChangeLog RELEASE.NOTES
 %doc doc/AUTHORS doc/BUGS doc/CREDITS doc/generators doc/INSTALL doc/NEWS doc/PROBLEMS doc/README
 %doc doc/README.alert_order doc/README.ARUBA doc/README.asn1 doc/README.csv doc/README.database
@@ -718,67 +713,42 @@ fi
 %attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_modbus_preproc.so
 
 %files plain+flexresp
-%defattr(-,root,root)
 %attr(0755,root,root) %{_sbindir}/%{name}-plain+flexresp
 
 %files mysql
-%defattr(-,root,root)
 %doc schemas/create_mysql
 %attr(0755,root,root) %{_sbindir}/%{name}-mysql
 
 %files mysql+flexresp
-%defattr(-,root,root)
 %doc schemas/create_mysql
 %attr(0755,root,root) %{_sbindir}/%{name}-mysql+flexresp
 
 %files postgresql
-%defattr(-,root,root)
 %doc schemas/create_postgresql
 %attr(0755,root,root) %{_sbindir}/%{name}-postgresql
 
 %files postgresql+flexresp
-%defattr(-,root,root)
 %doc schemas/create_postgresql
 %attr(0755,root,root) %{_sbindir}/%{name}-postgresql+flexresp
 
 %files bloat
-%defattr(-,root,root)
 %attr(0755,root,root) %{_sbindir}/%{name}-bloat
 
 %files inline
-%defattr(-,root,root)
 %attr(0755,root,root) %{_sbindir}/%{name}-inline
 
 %files inline+flexresp
-%defattr(-,root,root)
 %attr(0755,root,root) %{_sbindir}/%{name}-inline+flexresp
 
 %files prelude
-%defattr(-,root,root)
 %attr(0755,root,root) %{_sbindir}/%{name}-prelude
 
 %files prelude+flexresp
-%defattr(-,root,root)
 %attr(0755,root,root) %{_sbindir}/%{name}-prelude+flexresp
 
 %files devel
-%defattr(-,root,root)
 %attr(0755,root,root) %dir %{_libdir}/pkgconfig
 %attr(0644,root,root) %{_libdir}/pkgconfig/snort.pc
 %attr(0644,root,root) %{_libdir}/pkgconfig/snort_preproc.pc
 %attr(0755,root,root) %dir %{_includedir}/%{name}/dynamic_preproc
 %attr(0644,root,root) %{_includedir}/%{name}/dynamic_preproc/*.h
-
-
-
-%changelog
-* Tue Aug 02 2011 fwang <fwang> 2.9.0.5-3.mga2
-+ Revision: 131417
-- rebuild for new gnutls
-
-  + dlucio <dlucio>
-    - 2.9.0.5
-    - 2.9.0.5
-    - 2.9.0.4
-    - imported package snort
-

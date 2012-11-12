@@ -1,0 +1,11 @@
+diff -Naur snort-2.8.5/src/inline.c snort-2.8.5.tpg/src/inline.c
+--- snort-2.8.5/src/inline.c	2009-07-07 15:25:41.000000000 +0000
++++ snort-2.8.5.tpg/src/inline.c	2009-10-10 21:10:29.000000000 +0000
+@@ -22,6 +22,7 @@
+ #include <string.h>
+ #include <pcap.h>
+ #include <libnet.h>
++#include <net/ethernet.h>
+ 
+ #include "decode.h"
+ #include "inline.h"

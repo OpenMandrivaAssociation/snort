@@ -1,0 +1,301 @@
+diff -Naur snort-2.9.2.1/src/dynamic-examples/dynamic-preprocessor/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-examples/dynamic-preprocessor/Makefile.am
+--- snort-2.9.2.1/src/dynamic-examples/dynamic-preprocessor/Makefile.am	2009-10-19 16:46:58.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-examples/dynamic-preprocessor/Makefile.am	2012-01-28 19:46:07.143507218 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include
+ 
+-noinst_libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++noinst_libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ noinst_lib_LTLIBRARIES = lib_sfdynamic_preprocessor_example.la
+ 
+-lib_sfdynamic_preprocessor_example_la_LDFLAGS = -export-dynamic
++lib_sfdynamic_preprocessor_example_la_LDFLAGS = -export-dynamic -module -avoid-version
+ 
+ BUILT_SOURCES = \
+ sf_dynamic_preproc_lib.c  \
+diff -Naur snort-2.9.2.1/src/dynamic-examples/dynamic-rule/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-examples/dynamic-rule/Makefile.am
+--- snort-2.9.2.1/src/dynamic-examples/dynamic-rule/Makefile.am	2011-06-07 19:33:10.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-examples/dynamic-rule/Makefile.am	2012-01-28 19:46:07.143507218 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include
+ 
+-noinst_libdir = ${exec_prefix}/lib/snort_dynamicrules
++noinst_libdir = ${libexecdir}/dynamicrules
+ 
+ noinst_lib_LTLIBRARIES = lib_sfdynamic_example_rule.la
+ 
+-lib_sfdynamic_example_rule_la_LDFLAGS = -export-dynamic @XCCFLAGS@
++lib_sfdynamic_example_rule_la_LDFLAGS = -export-dynamic @XCCFLAGS@ -module -avoid-version
+ 
+ BUILT_SOURCES = \
+ sfsnort_dynamic_detection_lib.c \
+diff -Naur snort-2.9.2.1/src/dynamic-plugins/sf_engine/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-plugins/sf_engine/Makefile.am
+--- snort-2.9.2.1/src/dynamic-plugins/sf_engine/Makefile.am	2011-06-07 19:33:11.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-plugins/sf_engine/Makefile.am	2012-01-28 19:46:07.492504980 -0600
+@@ -5,9 +5,9 @@
+ 
+ lib_LTLIBRARIES = libsf_engine.la
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicengine
++libdir = ${libexecdir}/dynamicengine
+ 
+-libsf_engine_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_engine_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version -avoid-version
+ 
+ BUILT_SOURCES = \
+ sfhashfcn.c \
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/dcerpc2/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/dcerpc2/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/dcerpc2/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/dcerpc2/Makefile.am	2012-01-28 19:46:07.502504915 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs -I$(srcdir)/includes
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_dce2_preproc.la
+ 
+-libsf_dce2_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_dce2_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_dce2_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/dnp3/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/dnp3/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/dnp3/Makefile.am	2011-10-26 13:28:52.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/dnp3/Makefile.am	2012-01-28 19:47:01.638157991 -0600
+@@ -4,10 +4,11 @@
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+ libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_dnp3_preproc.la
+ 
+-libsf_dnp3_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_dnp3_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_dnp3_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/dns/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/dns/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/dns/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/dns/Makefile.am	2012-01-28 19:46:07.514504838 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_dns_preproc.la
+ 
+-libsf_dns_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_dns_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_dns_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/ftptelnet/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/ftptelnet/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/ftptelnet/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/ftptelnet/Makefile.am	2012-01-28 19:46:07.525504767 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs -I$(srcdir)/includes
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_ftptelnet_preproc.la
+ 
+-libsf_ftptelnet_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_ftptelnet_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_ftptelnet_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/gtp/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/gtp/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/gtp/Makefile.am	2011-10-26 13:28:52.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/gtp/Makefile.am	2012-01-28 19:46:41.492287012 -0600
+@@ -4,10 +4,11 @@
+ INCLUDES = -I../include -I${srcdir}/../libs -I$(srcdir)/includes
+ 
+ libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_gtp_preproc.la
+ 
+-libsf_gtp_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_gtp_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_gtp_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/imap/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/imap/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/imap/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/imap/Makefile.am	2012-01-28 19:46:07.536504697 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_imap_preproc.la
+ 
+-libsf_imap_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_imap_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_imap_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/modbus/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/modbus/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/modbus/Makefile.am	2011-10-26 13:28:52.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/modbus/Makefile.am	2012-01-28 19:47:18.485050174 -0600
+@@ -4,10 +4,11 @@
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+ libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_modbus_preproc.la
+ 
+-libsf_modbus_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_modbus_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_modbus_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/pop/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/pop/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/pop/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/pop/Makefile.am	2012-01-28 19:46:07.547504627 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_pop_preproc.la
+ 
+-libsf_pop_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_pop_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_pop_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/reputation/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/reputation/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/reputation/Makefile.am	2011-10-26 09:49:57.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/reputation/Makefile.am	2012-01-28 19:46:07.558504557 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs -I$(srcdir)/includes
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_reputation_preproc.la
+ 
+-libsf_reputation_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_reputation_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_reputation_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/rzb_saac/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/rzb_saac/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/rzb_saac/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/rzb_saac/Makefile.am	2012-01-28 19:46:07.569504486 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-pkglibdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++pkglibdir = ${libexecdir}/dynamicpreprocessor
+ 
+ pkglib_LTLIBRARIES = sf_rzb_saac_preproc.la
+ 
+-sf_rzb_saac_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++sf_rzb_saac_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ PREPROCLIB=../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/sdf/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/sdf/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/sdf/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/sdf/Makefile.am	2012-01-28 19:46:07.609504229 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_sdf_preproc.la
+ 
+-libsf_sdf_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_sdf_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_sdf_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/sip/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/sip/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/sip/Makefile.am	2011-10-26 13:28:52.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/sip/Makefile.am	2012-01-28 19:46:07.620504158 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs -I$(srcdir)/includes
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_sip_preproc.la
+ 
+-libsf_sip_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_sip_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_sip_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/smtp/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/smtp/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/smtp/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/smtp/Makefile.am	2012-01-28 19:46:07.631504088 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_smtp_preproc.la
+ 
+-libsf_smtp_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_smtp_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_smtp_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/ssh/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/ssh/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/ssh/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/ssh/Makefile.am	2012-01-28 19:46:07.642504017 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_ssh_preproc.la
+ 
+-libsf_ssh_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_ssh_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_ssh_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naur snort-2.9.2.1/src/dynamic-preprocessors/ssl/Makefile.am snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/ssl/Makefile.am
+--- snort-2.9.2.1/src/dynamic-preprocessors/ssl/Makefile.am	2011-07-13 17:44:51.000000000 -0500
++++ snort-2.9.2.1.dlucio-p2/src/dynamic-preprocessors/ssl/Makefile.am	2012-01-28 19:46:07.653503947 -0600
+@@ -3,11 +3,11 @@
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-libdir = ${exec_prefix}/lib/snort_dynamicpreprocessor
++libdir = ${libexecdir}/dynamicpreprocessor
+ 
+ lib_LTLIBRARIES = libsf_ssl_preproc.la
+ 
+-libsf_ssl_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@
++libsf_ssl_preproc_la_LDFLAGS = -shared -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_ssl_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else

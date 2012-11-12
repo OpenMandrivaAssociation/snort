@@ -1,0 +1,7 @@
+sources:
+  "snort-2.9.2.3.tar.gz:"	f2ba349f3be9410b2fee2a84b3a3405d25960d0c
+  "snort-2.9.2.3.tar.gz.sig:"	d15be41735fdb59dac617029baab112c6ae4d056
+  "snortdb-extra:"	64d24576decdcb67ab2a280b141887ff52629bd5
+  "snort.init:"	f1291c3327edc2822ffde524552a40fd853fb6cf
+  "snort.logrotate:"	bc1e107ff64b375c24dcd6d16329703dc5ee1950
+  "snort.sysconfig:"	dac0221bcee80c2f82d92209bf41af07e513cf7f

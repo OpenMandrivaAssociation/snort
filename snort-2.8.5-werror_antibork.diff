@@ -1,0 +1,17 @@
+--- configure.in	2009-09-23 17:42:35.000000000 +0200
++++ configure.in.oden	2009-09-23 17:44:06.000000000 +0200
+@@ -10,14 +10,6 @@
+ NO_OPTIMIZE="no"
+ ADD_WERROR="no"
+ 
+-# Test for -Werror and sed it out for now since some of the auto tests,
+-# for example AC_CHECK_LIB, will fail because of
+-# warning: conflicting types for built-in function <func>
+-if eval "echo $CFLAGS | grep -e -Werror"; then
+-    CFLAGS=`echo $CFLAGS | sed -e "s/-Werror//g"`
+-    ADD_WERROR="yes"
+-fi
+-
+ # Disable annoying practice of recursively re-running the autotools
+ AM_MAINTAINER_MODE
+ AC_PROG_CC_STDC

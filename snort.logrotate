@@ -1,0 +1,15 @@
+
+# (oe) catch time stamped logs like (/var/log/snort/snort.log.1110567861),
+# use something like "-L /var/log/snort/snort.log" to prevent that.
+
+/var/log/snort/*.log /var/log/snort/*.log.[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9] 
+/var/log/snort/*/*.log /var/log/snort/*/*.log.[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]
+/var/log/snort/alert /var/log/snort/*/alert {
+    daily
+    rotate 7
+    missingok
+    compress
+    postrotate
+	/etc/rc.d/init.d/snort condrestart 1>/dev/null || true
+    endscript
+}

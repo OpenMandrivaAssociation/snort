@@ -46,6 +46,7 @@ BuildRequires:	gnutls-devel
 BuildRequires:	prelude-devel
 BuildRequires:	iptables-ipq-devel
 BuildRequires:	daq-devel
+BuildRequires:	tirpc-devel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 Suggests:	snortsam
 

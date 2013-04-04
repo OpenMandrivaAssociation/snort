@@ -1,7 +1,7 @@
 Summary:	An Intrusion Detection System (IDS)
 Name:		snort
 Version:	2.9.3
-Release:	%mkrel 1
+Release:	2
 License:	GPLv2
 Group:		Networking/Other
 URL:		http://www.snort.org/
@@ -16,6 +16,7 @@ Patch0:		snort-lib64.diff
 Patch2:		snort-2.9.1-plugins_fix.diff
 Patch3:		snort-2.8.5-werror_antibork.diff
 Patch4:		snort-2.9.3-plugins_fix.patch
+Patch5:		snort-2.9.3-automake113.patch
 Requires(post): rpm-helper snort-rules
 Requires(preun): rpm-helper snort-rules
 Requires(pre): rpm-helper
@@ -271,6 +272,7 @@ This are snort H files.
 %patch2 -p1 -b .plugins_fix
 %patch3 -p0 -b .werror_antibork
 %patch4 -p0 -b .plugins_fix
+%patch5 -p1 -b .automake113
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h

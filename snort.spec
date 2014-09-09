@@ -12,6 +12,7 @@ Source4:        snort.logrotate
 Source5:        snort.sysconfig
 Source6:        snortdb-extra
 Source7:        snort-wrapper.sh
+Source100:	%{name}.rpmlintrc
 Patch0:         snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
 Patch2:         snort-2.9.1-plugins_fix.diff

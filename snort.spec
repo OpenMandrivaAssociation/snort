@@ -588,7 +588,7 @@ fi
 %attr(0755,snort,snort) %dir /var/run/%{name}
 %attr(0755,root,root) %dir %{_sysconfdir}/%{name}
 %attr(0755,root,root) %dir %{_sysconfdir}/%{name}/rules
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/*.conf
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/file_magic.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/*.config
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/threshold.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/*.map

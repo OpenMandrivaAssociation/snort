@@ -1,2 +1,4 @@
+removed_sources:
+  snort-2.9.3.tar.gz: 37215e4f9a4107c6fda0f1a53bd6dd8c110b6f7f
 sources:
-  "snort-2.9.3.tar.gz": 37215e4f9a4107c6fda0f1a53bd6dd8c110b6f7f
+  snort-2.9.6.2.tar.gz: 09068bc88dbb3fe47b2bff5803a7b3ef0c98395b

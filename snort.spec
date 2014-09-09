@@ -1,48 +1,48 @@
-Summary:	An Intrusion Detection System (IDS)
-Name:		snort
-Version:	2.9.3
-Release:	9
-License:	GPLv2
-Group:		Networking/Other
-Url:		http://www.snort.org/
-Source0:	http://www.snort.org/dl/current/%{name}-%{version}.tar.gz
-Source1:	http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.sig
-Source3:	snort.init
-Source4:	snort.logrotate
-Source5:	snort.sysconfig
-Source6:	snortdb-extra
-Patch0:		snort-lib64.diff
+Summary:        An Intrusion Detection System (IDS)
+Name:           snort
+Version:        2.9.6.2
+Release:        1
+License:        GPLv2+
+Group:          Networking/Other
+Url:            http://www.snort.org/
+Source0:        http://www.snort.org/dl/current/%{name}-%{version}.tar.gz
+#Source1:        http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.sig
+Source3:        snort.service
+Source4:        snort.logrotate
+Source5:        snort.sysconfig
+Source6:        snortdb-extra
+Source7:        snort-wrapper.sh
+Patch0:         snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
-Patch2:		snort-2.9.1-plugins_fix.diff
-Patch3:		snort-2.8.5-werror_antibork.diff
-Patch4:		snort-2.9.3-plugins_fix.patch
-Patch5:		snort-2.9.3-automake113.patch
-Requires(post,preun,pre,postun):	rpm-helper
-Requires(preun,post):	snort-rules
-Requires:	pcre
-Requires:	pcap
-Requires:	snort-rules
-BuildRequires:	bison
-BuildRequires:	chrpath
-BuildRequires:	flex
-BuildRequires:	latex2html
-BuildRequires:	texinfo
-BuildRequires:	daq-devel
-BuildRequires:	dnet-devel
-BuildRequires:	mysql-devel
-BuildRequires:	net1.0.2-devel
-BuildRequires:	pcap-devel
-BuildRequires:	postgresql-devel
-BuildRequires:	pkgconfig(gnutls)
-BuildRequires:	pkgconfig(libgcrypt)
-BuildRequires:	pkgconfig(libipq)
-BuildRequires:	pkgconfig(libpcre)
-BuildRequires:	pkgconfig(libprelude)
-BuildRequires:	pkgconfig(libtirpc)
-BuildRequires:	pkgconfig(openssl)
-BuildRequires:	pkgconfig(xtables)
-BuildRequires:	pkgconfig(zlib)
-Suggests:	snortsam
+Patch2:         snort-2.9.1-plugins_fix.diff
+Patch3:         snort-2.8.5-werror_antibork.diff
+Patch4:         snort-2.9.3-plugins_fix.patch
+BuildRequires:  bison
+BuildRequires:  chrpath
+BuildRequires:  flex
+BuildRequires:  latex2html
+BuildRequires:  texinfo
+BuildRequires:  daq-devel
+BuildRequires:  dnet-devel
+BuildRequires:  mysql-devel
+BuildRequires:  net1.0.2-devel
+BuildRequires:  pcap-devel
+BuildRequires:  postgresql-devel
+BuildRequires:  pkgconfig(gnutls)
+BuildRequires:  pkgconfig(libgcrypt)
+BuildRequires:  pkgconfig(libipq)
+BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libprelude)
+BuildRequires:  pkgconfig(libtirpc)
+BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(xtables)
+BuildRequires:  pkgconfig(zlib)
+Requires(post,preun,pre,postun):        rpm-helper
+Requires(preun,post):   snort-rules
+Requires:       pcre
+Requires:       pcap
+Requires:       snort-rules
+Suggests:       snortsam
 
 %description
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -72,103 +72,103 @@ prelude(19)             prelude+flexresp(20)
 
 Please see the documentation in %{_docdir}/%{name}
 
-%package	plain+flexresp
-Summary:	Snort with Flexible Response
-Group:		Networking/Other
-Requires:	snort >= %{version}-%{release}
+%package plain+flexresp
+Summary:        Snort with Flexible Response
+Group:          Networking/Other
+Requires:       snort >= %{version}-%{release}
 
-%description	plain+flexresp
+%description plain+flexresp
 Snort compiled with flexresp support. FlexResp allows snort to actively close
 offending connections.
 
-%package	mysql
-Summary:	Snort with MySQL database support
-Group:		Networking/Other
-Requires:	snort >= %{version}-%{release}
+%package mysql
+Summary:        Snort with MySQL database support
+Group:          Networking/Other
+Requires:       snort >= %{version}-%{release}
 
-%description	mysql
+%description mysql
 Snort compiled with mysql support.
 
-%package	mysql+flexresp
-Summary:	Snort with MySQL database and Flexible Response support
-Group:		Networking/Other
-Requires:	snort >= %{version}-%{release}
+%package mysql+flexresp
+Summary:        Snort with MySQL database and Flexible Response support
+Group:          Networking/Other
+Requires:       snort >= %{version}-%{release}
 
-%description	mysql+flexresp
+%description mysql+flexresp
 Snort compiled with mysql+flexresp support. FlexResp allows snort to actively
 close offending connections.
 
-%package	postgresql
-Summary:	Snort with PostgreSQL database support
-Group:		Networking/Other
-Requires:	snort >= %{version}-%{release}
+%package postgresql
+Summary:        Snort with PostgreSQL database support
+Group:          Networking/Other
+Requires:       snort >= %{version}-%{release}
 
-%description	postgresql
-Snort compiled with postgresql support. 
+%description    postgresql
+Snort compiled with postgresql support.
 
-%package	postgresql+flexresp
-Summary:	Snort with PostgreSQL database and Flexible Response support
-Group:		Networking/Other
-Requires:	snort >= %{version}-%{release}
+%package postgresql+flexresp
+Summary:        Snort with PostgreSQL database and Flexible Response support
+Group:          Networking/Other
+Requires:       snort >= %{version}-%{release}
 
-%description	postgresql+flexresp
+%description postgresql+flexresp
 Snort compiled with postgresql+flexresp support. FlexResp allows snort to
 actively close offending connections.
 
-%package	bloat
-Summary:	Snort with flexresp+mysql+postgresql+inline+prelude support
-Group:		Networking/Other
-Requires:	snort >= %{version}-%{release}
+%package bloat
+Summary:        Snort with flexresp+mysql+postgresql+inline+prelude support
+Group:          Networking/Other
+Requires:       snort >= %{version}-%{release}
 
-%description	bloat
+%description    bloat
 Snort compiled with flexresp+mysql+postgresql+inline+prelude support.
 
-%package	inline
-Summary:	Snort with Inline support
-Group:		Networking/Other
-Requires:	iptables
-Requires:	snort >= %{version}-%{release}
+%package inline
+Summary:        Snort with Inline support
+Group:          Networking/Other
+Requires:       iptables
+Requires:       snort >= %{version}-%{release}
 
-%description	inline
+%description inline
 Snort compiled with inline support. Snort-Inline takes packets from iptables
 instead of libpcap. It then uses new rule types to help iptables make pass or
 drop decisions based on snort rules.  
 
-%package	inline+flexresp
-Summary:	Snort with Inline and Flexible Response support
-Group:		Networking/Other
-Requires:	iptables
-Requires:	snort >= %{version}-%{release}
+%package inline+flexresp
+Summary:        Snort with Inline and Flexible Response support
+Group:          Networking/Other
+Requires:       iptables
+Requires:       snort >= %{version}-%{release}
 
-%description	inline+flexresp
+%description inline+flexresp
 Snort compiled with inline+flexresp support. FlexResp allows snort to actively
 close offending connections. Snort-Inline takes packets from iptables instead
 of libpcap. It then uses new rule types to help iptables make pass or drop
 decisions based on snort rules.  
 
-%package	prelude
-Summary:	Snort with Prelude support
-Group:		Networking/Other
-Requires:	snort >= %{version}-%{release}
+%package prelude
+Summary:        Snort with Prelude support
+Group:          Networking/Other
+Requires:       snort >= %{version}-%{release}
 
-%description	prelude
+%description prelude
 Snort compiled with prelude support.
 
-%package	prelude+flexresp
-Summary:	Snort with Prelude and Flexible Response support
-Group:		Networking/Other
-Requires:	snort >= %{version}-%{release}
+%package prelude+flexresp
+Summary:        Snort with Prelude and Flexible Response support
+Group:          Networking/Other
+Requires:       snort >= %{version}-%{release}
 
-%description	prelude+flexresp
+%description prelude+flexresp
 Snort compiled with prelude+flexresp support. FlexResp allows snort to actively
 close offending connections.
 
-%package        devel
+%package devel
 Summary:        Snort development files
 Group:          Networking/Other
 Requires:       snort = %{version}-%{release}
 
-%description    devel
+%description devel
 This package includes the development files for %{name}.
 
 %prep
@@ -177,7 +177,6 @@ This package includes the development files for %{name}.
 %patch2 -p1 -b .plugins_fix
 %patch3 -p0 -b .werror_antibork
 %patch4 -p0 -b .plugins_fix
-%patch5 -p1 -b .automake113
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h
@@ -448,7 +447,6 @@ rm -f  %{buildroot}%{_bindir}/%{name}
 rm -rf %{buildroot}%{_prefix}/src
 rm -f  %{buildroot}%{_libdir}/%{name}/dynamicengine/*.{a,la}
 rm -f  %{buildroot}%{_libdir}/%{name}/dynamicpreprocessor/*.{a,la}
-#rm -f %{buildroot}%{_libdir}/%{name}/dynamicrules/*.{a,la}
 rm -f  %{buildroot}%{_libdir}/%{name}/dynamic_preproc/*.{a,la}
 
 {
@@ -474,9 +472,13 @@ install -m0644 etc/*.conf %{buildroot}%{_sysconfdir}/%{name}/
 install -m0644 etc/*.config %{buildroot}%{_sysconfdir}/%{name}/
 install -m0644 etc/*.map %{buildroot}%{_sysconfdir}/%{name}/
 
-install -m0755 %{SOURCE3} %{buildroot}%{_initrddir}/snort
+install -D -p -m 0644 %{SOURCE3} %{buildroot}%{_unitdir}/%{name}.service
+
 install -m0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 install -m0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
+
+install -D -m755 %{SOURCE7} %{buildroot}%{_libexecdir}/snort-wrapper.sh
+sed "s:libexecdir:%{_libexecdir}:" -i %{buildroot}%{_unitdir}/%{name}.service
 
 # strip rpath
 chrpath -d %{buildroot}%{_sbindir}/%{name}-*
@@ -489,10 +491,10 @@ perl -pi -e "s|/usr/local/lib/snort_|%{_libdir}/%{name}/|g" %{buildroot}%{_sysco
 
 %post
 %{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-plain 10
-%_post_service snort
+%systemd_post snort
 
 %preun
-%_preun_service snort
+%systemd_preun snort
 
 %postun
 %_postun_userdel snort
@@ -586,17 +588,19 @@ fi
 %attr(0755,snort,snort) %dir /var/run/%{name}
 %attr(0755,root,root) %dir %{_sysconfdir}/%{name}
 %attr(0755,root,root) %dir %{_sysconfdir}/%{name}/rules
+%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/*.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/*.config
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/threshold.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/*.map
 %attr(0640,root,root) %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
-%attr(0755,root,root) %{_initrddir}/snort
+%attr(0644,root,root) %{_unitdir}/%{name}.service
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/dynamicengine
 %dir %{_libdir}/%{name}/dynamicpreprocessor
 #%dir %{_libdir}/%{name}/dynamicrules
+%dir %{_libdir}/%{name}/dynamic_output
 %{_libdir}/%{name}/dynamicengine/libsf_engine.so
 %{_libdir}/%{name}/dynamicpreprocessor/libsf_dce2_preproc.so
 #attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dcerpc_preproc.so
@@ -617,6 +621,8 @@ fi
 %{_libdir}/%{name}/dynamicpreprocessor/libsf_gtp_preproc.*
 %{_libdir}/%{name}/dynamicpreprocessor/libsf_modbus_preproc.*
 %{_libdir}/%{name}/dynamic_output/libsf_dynamic_output.*
+
+%attr(0755,root,root) %{_libexecdir}/snort-wrapper.sh
 
 %files plain+flexresp
 %{_sbindir}/%{name}-plain+flexresp

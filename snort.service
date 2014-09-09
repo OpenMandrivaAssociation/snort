@@ -1,0 +1,11 @@
+[Unit]
+Description=snort is a lightweight network intrusion detection tool that currently detects more than 1100 host and network vulnerabilities, portscans, backdoors, and more.
+After=network.target nss-lookup.target
+
+[Service]
+# wrapper script forks snort for each network interface
+Type=forking
+ExecStart=libexecdir/snort-wrapper.sh
+
+[Install]
+WantedBy=multi-user.target

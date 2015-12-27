@@ -1,7 +1,7 @@
 Summary:        An Intrusion Detection System (IDS)
 Name:           snort
-Version:        2.9.6.2
-Release:        5
+Version:        2.9.8.0
+Release:        1
 License:        GPLv2+
 Group:          Networking/Other
 Url:            http://www.snort.org/
@@ -15,9 +15,7 @@ Source7:        snort-wrapper.sh
 Source100:	%{name}.rpmlintrc
 Patch0:         snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
-Patch2:         snort-2.9.1-plugins_fix.diff
-Patch3:         snort-2.8.5-werror_antibork.diff
-Patch4:         snort-2.9.3-plugins_fix.patch
+Patch2:         snort-2.9.7.6-plugins_fix.diff
 BuildRequires:  bison
 BuildRequires:  chrpath
 BuildRequires:  flex
@@ -176,8 +174,6 @@ This package includes the development files for %{name}.
 %setup -q
 %patch0 -p0 -b .lib64
 %patch2 -p1 -b .plugins_fix
-%patch3 -p0 -b .werror_antibork
-%patch4 -p0 -b .plugins_fix
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h

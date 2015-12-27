@@ -1,0 +1,322 @@
+diff -Naurp snort-2.9.7.6/src/dynamic-examples/dynamic-preprocessor/Makefile.am snort-2.9.7.6.oden/src/dynamic-examples/dynamic-preprocessor/Makefile.am
+--- snort-2.9.7.6/src/dynamic-examples/dynamic-preprocessor/Makefile.am	2014-02-21 18:05:49.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-examples/dynamic-preprocessor/Makefile.am	2015-11-12 09:39:58.292039990 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include
+ 
+-noinst_dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++noinst_dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ noinst_dynamicpreprocessor_LTLIBRARIES = lib_sfdynamic_preprocessor_example.la
+ 
+-lib_sfdynamic_preprocessor_example_la_LDFLAGS = -export-dynamic
++lib_sfdynamic_preprocessor_example_la_LDFLAGS = -export-dynamic -module -avoid-version
+ 
+ BUILT_SOURCES = \
+ sf_dynamic_preproc_lib.c  \
+diff -Naurp snort-2.9.7.6/src/dynamic-examples/dynamic-rule/Makefile.am snort-2.9.7.6.oden/src/dynamic-examples/dynamic-rule/Makefile.am
+--- snort-2.9.7.6/src/dynamic-examples/dynamic-rule/Makefile.am	2011-06-08 02:33:10.000000000 +0200
++++ snort-2.9.7.6.oden/src/dynamic-examples/dynamic-rule/Makefile.am	2015-11-12 09:39:00.365105581 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include
+ 
+-noinst_libdir = ${exec_prefix}/lib/snort_dynamicrules
++noinst_libdir = ${libexecdir}/dynamicrules
+ 
+ noinst_lib_LTLIBRARIES = lib_sfdynamic_example_rule.la
+ 
+-lib_sfdynamic_example_rule_la_LDFLAGS = -export-dynamic @XCCFLAGS@
++lib_sfdynamic_example_rule_la_LDFLAGS = -export-dynamic @XCCFLAGS@  -module -avoid-version
+ 
+ BUILT_SOURCES = \
+ sfsnort_dynamic_detection_lib.c \
+diff -Naurp snort-2.9.7.6/src/dynamic-plugins/sf_engine/Makefile.am snort-2.9.7.6.oden/src/dynamic-plugins/sf_engine/Makefile.am
+--- snort-2.9.7.6/src/dynamic-plugins/sf_engine/Makefile.am	2014-06-10 15:29:29.000000000 +0200
++++ snort-2.9.7.6.oden/src/dynamic-plugins/sf_engine/Makefile.am	2015-11-12 09:40:57.618947735 +0100
+@@ -5,9 +5,9 @@ INCLUDES = @INCLUDES@
+ 
+ dynamicengine_LTLIBRARIES = libsf_engine.la
+ 
+-dynamicenginedir = $(libdir)/snort_dynamicengine
++dynamicenginedir = ${libexecdir}/dynamicengine
+ 
+-libsf_engine_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_engine_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version 
+ 
+ if BUILD_OPENSSL_MD5
+ OPENSSL_MD5 = \
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/appid/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/appid/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/appid/Makefile.am	2014-09-16 20:24:43.000000000 +0200
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/appid/Makefile.am	2015-11-12 09:46:38.343661336 +0100
+@@ -7,12 +7,12 @@ INCLUDES = -I${top_builddir}/src/dynamic
+
+ include $(srcdir)/Makefile_defs
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_appid_preproc.la
+ 
+ 
+-libsf_appid_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_appid_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_appid_preproc_la_LIBADD = ../libsf_dynamic_preproc.la ../libsf_dynamic_utils.la $(LUA_LIBS)
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/dcerpc2/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/dcerpc2/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/dcerpc2/Makefile.am	2014-02-21 18:05:51.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/dcerpc2/Makefile.am	2015-11-12 09:47:48.020373723 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs -I$(srcdir)/includes
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_dce2_preproc.la
+ 
+-libsf_dce2_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_dce2_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_dce2_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/dnp3/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/dnp3/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/dnp3/Makefile.am	2014-02-21 18:05:51.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/dnp3/Makefile.am	2015-11-12 09:47:58.883172933 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_dnp3_preproc.la
+ 
+-libsf_dnp3_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_dnp3_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_dnp3_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/dns/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/dns/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/dns/Makefile.am	2014-02-21 18:05:52.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/dns/Makefile.am	2015-11-12 09:48:07.747009084 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_dns_preproc.la
+ 
+-libsf_dns_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_dns_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_dns_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/file/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/file/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/file/Makefile.am	2014-02-21 18:05:52.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/file/Makefile.am	2015-11-12 09:48:15.626863416 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs -I./include   
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_file_preproc.la
+ 
+-libsf_file_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_file_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_file_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/ftptelnet/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/ftptelnet/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/ftptelnet/Makefile.am	2014-06-10 15:29:30.000000000 +0200
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/ftptelnet/Makefile.am	2015-11-12 09:48:25.834674705 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../ssl_common -I${srcdir}/../libs -I${srcdir}/includes
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_ftptelnet_preproc.la
+ 
+-libsf_ftptelnet_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_ftptelnet_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_ftptelnet_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/gtp/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/gtp/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/gtp/Makefile.am	2014-02-21 18:05:54.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/gtp/Makefile.am	2015-11-12 09:48:34.035523089 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs -I$(srcdir)/includes
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_gtp_preproc.la
+ 
+-libsf_gtp_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_gtp_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_gtp_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/imap/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/imap/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/imap/Makefile.am	2014-06-10 15:29:30.000000000 +0200
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/imap/Makefile.am	2015-11-12 09:48:42.899359207 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../ssl_common -I${srcdir}/../libs
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_imap_preproc.la
+ 
+-libsf_imap_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_imap_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_imap_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/modbus/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/modbus/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/modbus/Makefile.am	2014-02-21 18:05:56.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/modbus/Makefile.am	2015-11-12 09:48:58.042079224 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_modbus_preproc.la
+ 
+-libsf_modbus_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_modbus_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_modbus_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/pop/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/pop/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/pop/Makefile.am	2014-06-10 15:29:30.000000000 +0200
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/pop/Makefile.am	2015-11-12 09:49:07.273908520 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../ssl_common -I${srcdir}/../libs
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_pop_preproc.la
+ 
+-libsf_pop_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_pop_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_pop_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/reputation/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/reputation/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/reputation/Makefile.am	2014-02-21 18:05:58.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/reputation/Makefile.am	2015-11-12 09:49:16.329741061 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs -I$(srcdir)/includes
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_reputation_preproc.la
+ 
+-libsf_reputation_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_reputation_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_reputation_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/sdf/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/sdf/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/sdf/Makefile.am	2014-02-21 18:05:58.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/sdf/Makefile.am	2015-11-12 09:49:28.370518396 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_sdf_preproc.la
+ 
+-libsf_sdf_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_sdf_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_sdf_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/sip/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/sip/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/sip/Makefile.am	2015-04-23 20:28:10.000000000 +0200
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/sip/Makefile.am	2015-11-12 09:49:38.074338939 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs -I$(srcdir)/includes
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_sip_preproc.la
+ 
+-libsf_sip_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_sip_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_sip_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/smtp/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/smtp/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/smtp/Makefile.am	2014-06-10 15:29:30.000000000 +0200
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/smtp/Makefile.am	2015-11-12 09:49:46.162189358 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../ssl_common -I${srcdir}/../libs
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_smtp_preproc.la
+ 
+-libsf_smtp_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_smtp_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_smtp_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/ssh/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/ssh/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/ssh/Makefile.am	2014-02-21 18:06:01.000000000 +0100
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/ssh/Makefile.am	2015-11-12 09:49:54.697031507 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../libs
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_ssh_preproc.la
+ 
+-libsf_ssh_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_ssh_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_ssh_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else
+diff -Naurp snort-2.9.7.6/src/dynamic-preprocessors/ssl/Makefile.am snort-2.9.7.6.oden/src/dynamic-preprocessors/ssl/Makefile.am
+--- snort-2.9.7.6/src/dynamic-preprocessors/ssl/Makefile.am	2014-06-10 15:29:30.000000000 +0200
++++ snort-2.9.7.6.oden/src/dynamic-preprocessors/ssl/Makefile.am	2015-11-12 09:50:02.536886505 +0100
+@@ -3,11 +3,11 @@ AUTOMAKE_OPTIONS=foreign no-dependencies
+ 
+ INCLUDES = -I../include -I${srcdir}/../ssl_common -I${srcdir}/../libs -I${srcdir}/../libs/ssl_common
+ 
+-dynamicpreprocessordir = ${libdir}/snort_dynamicpreprocessor
++dynamicpreprocessordir = ${libexecdir}/dynamicpreprocessor
+ 
+ dynamicpreprocessor_LTLIBRARIES = libsf_ssl_preproc.la
+ 
+-libsf_ssl_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@
++libsf_ssl_preproc_la_LDFLAGS = -export-dynamic -module @XCCFLAGS@ -avoid-version
+ if SO_WITH_STATIC_LIB
+ libsf_ssl_preproc_la_LIBADD = ../libsf_dynamic_preproc.la
+ else

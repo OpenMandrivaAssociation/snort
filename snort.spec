@@ -174,8 +174,8 @@ This package includes the development files for %{name}.
 
 %prep
 %setup -q -n %{oname}-%{version}
-%patch0 -p0 -b .lib64
-%patch2 -p1 -b .plugins_fix
+#patch0 -p0 -b .lib64
+#patch2 -p1 -b .plugins_fix
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h

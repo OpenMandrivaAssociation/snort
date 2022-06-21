@@ -30,6 +30,7 @@ BuildRequires:  mysql-devel
 BuildRequires:  net1.0.2-devel
 BuildRequires:  pcap-devel
 BuildRequires:  postgresql-devel
+BuildRequires:  pkgconfig(libfl)
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(libipq)

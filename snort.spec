@@ -32,6 +32,7 @@ BuildRequires:  pcap-devel
 BuildRequires:  postgresql-devel
 BuildRequires:  pkgconfig(libfl)
 BuildRequires:  pkgconfig(gnutls)
+BuildRequires:  pkgconfig(hwloc)
 BuildRequires:  pkgconfig(libgcrypt)
 BuildRequires:  pkgconfig(libipq)
 BuildRequires:  pkgconfig(libpcre)

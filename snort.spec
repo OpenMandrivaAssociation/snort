@@ -1,3 +1,5 @@
+%define oname snort3
+
 Summary:        An Intrusion Detection System (IDS)
 Name:           snort
 Version:        3.1.32.0
@@ -5,7 +7,7 @@ Release:        1
 License:        GPLv2+
 Group:          Networking/Other
 Url:            http://www.snort.org/
-Source0:        https://github.com/snort3/snort3/archive/refs/tags/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/snort3/snort3/archive/refs/tags/%{version}/%{oname}-%{version}.tar.gz
 #Source1:        http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.
 Source3:        snort.service
 Source4:        snort.logrotate
@@ -171,7 +173,7 @@ Requires:       snort = %{version}-%{release}
 This package includes the development files for %{name}.
 
 %prep
-%setup -q
+%setup -q -n %{oname}-%{version}
 %patch0 -p0 -b .lib64
 %patch2 -p1 -b .plugins_fix
 

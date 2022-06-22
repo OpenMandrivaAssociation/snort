@@ -273,106 +273,51 @@ fi
 %{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-prelude+flexresp
 
 %files
-%doc COPYING ChangeLog RELEASE.NOTES
-%doc doc/AUTHORS doc/BUGS doc/CREDITS doc/generators doc/INSTALL doc/NEWS doc/PROBLEMS doc/README
-%doc doc/README.alert_order doc/README.asn1 doc/README.csv
-%doc doc/README.dcerpc2 doc/README.decode doc/README.dns doc/README.event_queue 
-%doc doc/README.flowbits doc/README.frag3 doc/README.daq doc/README.decoder_preproc_rules doc/README.reload
-%doc doc/README.ftptelnet doc/README.gre doc/README.http_inspect doc/README.ipip doc/README.filters
-%doc doc/README.ipv6 doc/README.pcap_readmode doc/README.PerfProfiling doc/README.PLUGINS doc/README.ppm
-%doc doc/README.sfportscan doc/README.SMTP doc/README.ssh doc/README.ssl doc/README.multipleconfigs
-%doc doc/README.stream5 doc/README.tag doc/README.thresholding doc/README.UNSOCK doc/README.variables
-%doc doc/README.WIN32 doc/TODO doc/USAGE doc/WISHLIST doc/README.active 
-%doc doc/README.sensitive_data 
-%doc doc/*.pdf doc/*.tex
-#%doc %doc doc/CRYPTIX-LICENSE.TXT doc/README.sam
-# latex2html is borked...
-#%doc  doc/snort_manual doc/faq
-%{_sbindir}/%{name}-plain
+#{_sbindir}/%{name}-plain
 %{_bindir}/u2boat
 %{_bindir}/u2spewfoo
-%{_mandir}/man8/%{name}.8*
-%attr(0755,snort,snort) %dir /var/log/%{name}
-%attr(0755,snort,snort) %dir /var/log/%{name}/empty
-%attr(0755,snort,snort) %dir /var/run/%{name}
-%attr(0755,root,root) %dir %{_sysconfdir}/%{name}
-%attr(0755,root,root) %dir %{_sysconfdir}/%{name}/rules
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/file_magic.conf
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/*.config
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/threshold.conf
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/%{name}/*.map
-%attr(0640,root,root) %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/logrotate.d/%{name}
-%attr(0644,root,root) %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
-%attr(0644,root,root) %{_unitdir}/%{name}.service
-%dir %{_libdir}/%{name}
-%dir %{_libdir}/%{name}/dynamicengine
-%dir %{_libdir}/%{name}/dynamicpreprocessor
-#%dir %{_libdir}/%{name}/dynamicrules
-%dir %{_libdir}/%{name}/dynamic_output
-%{_libdir}/%{name}/dynamicengine/libsf_engine.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_dce2_preproc.so
-#attr(0755,root,root) %{_libdir}/%{name}/dynamicpreprocessor/libsf_dcerpc_preproc.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_dns_preproc.so
-#%{_libdir}/%{name}/dynamicpreprocessor/lib_sfdynamic_preprocessor_example.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_ftptelnet_preproc.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_smtp_preproc.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_ssh_preproc.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_ssl_preproc.so
-#%{_libdir}/%{name}/dynamicrules/lib_sfdynamic_example_rule.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_sdf_preproc.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_imap_preproc.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_pop_preproc.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_reputation_preproc.so
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_sip_preproc.so
-
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_dnp3_preproc.*
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_gtp_preproc.*
-%{_libdir}/%{name}/dynamicpreprocessor/libsf_modbus_preproc.*
-%{_libdir}/%{name}/dynamic_output/libsf_dynamic_output.*
-
-%attr(0755,root,root) %{_libexecdir}/snort-wrapper.sh
+#{_mandir}/man8/%{name}.8*
 
 %files plain+flexresp
-%{_sbindir}/%{name}-plain+flexresp
+#{_sbindir}/%{name}-plain+flexresp
 
 %files mysql
 #%doc schemas/create_mysql
-%{_sbindir}/%{name}-mysql
+#{_sbindir}/%{name}-mysql
 
 %files mysql+flexresp
 #%doc schemas/create_mysql
-%{_sbindir}/%{name}-mysql+flexresp
+#{_sbindir}/%{name}-mysql+flexresp
 
 %files postgresql
 #%doc schemas/create_postgresql
-%{_sbindir}/%{name}-postgresql
+#{_sbindir}/%{name}-postgresql
 
 %files postgresql+flexresp
 #%doc schemas/create_postgresql
-%{_sbindir}/%{name}-postgresql+flexresp
+#{_sbindir}/%{name}-postgresql+flexresp
 
 %files bloat
-%{_sbindir}/%{name}-bloat
+#{_sbindir}/%{name}-bloat
 
 %files inline
-%{_sbindir}/%{name}-inline
+#{_sbindir}/%{name}-inline
 
 %files inline+flexresp
-%{_sbindir}/%{name}-inline+flexresp
+#{_sbindir}/%{name}-inline+flexresp
 
 %files prelude
-%{_sbindir}/%{name}-prelude
+#{_sbindir}/%{name}-prelude
 
 %files prelude+flexresp
-%{_sbindir}/%{name}-prelude+flexresp
+#{_sbindir}/%{name}-prelude+flexresp
 
 %files devel
-%dir %{_libdir}/pkgconfig
-%{_libdir}/pkgconfig/snort_output.pc
-%{_libdir}/pkgconfig/snort.pc
-%{_libdir}/pkgconfig/snort_preproc.pc
-%dir %{_includedir}/%{name}/dynamic_preproc
-%dir %{_includedir}/%{name}/dynamic_output/*.h
-%{_includedir}/%{name}/dynamic_preproc/*.h
+#dir %{_libdir}/pkgconfig
+#{_libdir}/pkgconfig/snort_output.pc
+#{_libdir}/pkgconfig/snort.pc
+#{_libdir}/pkgconfig/snort_preproc.pc
+#dir %{_includedir}/%{name}/dynamic_preproc
+#dir %{_includedir}/%{name}/dynamic_output/*.h
+#{_includedir}/%{name}/dynamic_preproc/*.h
 

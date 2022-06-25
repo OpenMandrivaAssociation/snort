@@ -273,51 +273,15 @@ fi
 %{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-prelude+flexresp
 
 %files
-#{_sbindir}/%{name}-plain
+%doc %{_datadir}/doc/snort
+%{_bindir}/snort
+%{_bindir}/snort2lua
 %{_bindir}/u2boat
 %{_bindir}/u2spewfoo
-#{_mandir}/man8/%{name}.8*
+%{_sysconfdir}/snort
 
-%files plain+flexresp
-#{_sbindir}/%{name}-plain+flexresp
-
-%files mysql
-#%doc schemas/create_mysql
-#{_sbindir}/%{name}-mysql
-
-%files mysql+flexresp
-#%doc schemas/create_mysql
-#{_sbindir}/%{name}-mysql+flexresp
-
-%files postgresql
-#%doc schemas/create_postgresql
-#{_sbindir}/%{name}-postgresql
-
-%files postgresql+flexresp
-#%doc schemas/create_postgresql
-#{_sbindir}/%{name}-postgresql+flexresp
-
-%files bloat
-#{_sbindir}/%{name}-bloat
-
-%files inline
-#{_sbindir}/%{name}-inline
-
-%files inline+flexresp
-#{_sbindir}/%{name}-inline+flexresp
-
-%files prelude
-#{_sbindir}/%{name}-prelude
-
-%files prelude+flexresp
-#{_sbindir}/%{name}-prelude+flexresp
 
 %files devel
-#dir %{_libdir}/pkgconfig
-#{_libdir}/pkgconfig/snort_output.pc
-#{_libdir}/pkgconfig/snort.pc
-#{_libdir}/pkgconfig/snort_preproc.pc
-#dir %{_includedir}/%{name}/dynamic_preproc
-#dir %{_includedir}/%{name}/dynamic_output/*.h
-#{_includedir}/%{name}/dynamic_preproc/*.h
-
+%{_includedir}/snort
+%{_libdir}/pkgconfig/snort.pc
+%{_libdir}/snort/daq

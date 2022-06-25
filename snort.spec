@@ -77,97 +77,6 @@ prelude(19)             prelude+flexresp(20)
 
 Please see the documentation in %{_docdir}/%{name}
 
-%package plain+flexresp
-Summary:        Snort with Flexible Response
-Group:          Networking/Other
-Requires:       snort >= %{version}-%{release}
-
-%description plain+flexresp
-Snort compiled with flexresp support. FlexResp allows snort to actively close
-offending connections.
-
-%package mysql
-Summary:        Snort with MySQL database support
-Group:          Networking/Other
-Requires:       snort >= %{version}-%{release}
-
-%description mysql
-Snort compiled with mysql support.
-
-%package mysql+flexresp
-Summary:        Snort with MySQL database and Flexible Response support
-Group:          Networking/Other
-Requires:       snort >= %{version}-%{release}
-
-%description mysql+flexresp
-Snort compiled with mysql+flexresp support. FlexResp allows snort to actively
-close offending connections.
-
-%package postgresql
-Summary:        Snort with PostgreSQL database support
-Group:          Networking/Other
-Requires:       snort >= %{version}-%{release}
-
-%description    postgresql
-Snort compiled with postgresql support.
-
-%package postgresql+flexresp
-Summary:        Snort with PostgreSQL database and Flexible Response support
-Group:          Networking/Other
-Requires:       snort >= %{version}-%{release}
-
-%description postgresql+flexresp
-Snort compiled with postgresql+flexresp support. FlexResp allows snort to
-actively close offending connections.
-
-%package bloat
-Summary:        Snort with flexresp+mysql+postgresql+inline+prelude support
-Group:          Networking/Other
-Requires:       snort >= %{version}-%{release}
-
-%description    bloat
-Snort compiled with flexresp+mysql+postgresql+inline+prelude support.
-
-%package inline
-Summary:        Snort with Inline support
-Group:          Networking/Other
-Requires:       iptables
-Requires:       snort >= %{version}-%{release}
-
-%description inline
-Snort compiled with inline support. Snort-Inline takes packets from iptables
-instead of libpcap. It then uses new rule types to help iptables make pass or
-drop decisions based on snort rules.  
-
-%package inline+flexresp
-Summary:        Snort with Inline and Flexible Response support
-Group:          Networking/Other
-Requires:       iptables
-Requires:       snort >= %{version}-%{release}
-
-%description inline+flexresp
-Snort compiled with inline+flexresp support. FlexResp allows snort to actively
-close offending connections. Snort-Inline takes packets from iptables instead
-of libpcap. It then uses new rule types to help iptables make pass or drop
-decisions based on snort rules.  
-
-%package prelude
-Summary:        Snort with Prelude support
-Group:          Networking/Other
-Requires:       snort >= %{version}-%{release}
-
-%description prelude
-Snort compiled with prelude support.
-
-%package prelude+flexresp
-Summary:        Snort with Prelude and Flexible Response support
-Group:          Networking/Other
-Requires:       snort >= %{version}-%{release}
-
-%description prelude+flexresp
-Snort compiled with prelude+flexresp support. FlexResp allows snort to actively
-close offending connections.
-
 %package devel
 Summary:        Snort development files
 Group:          Networking/Other
@@ -207,70 +116,6 @@ cp -a %{SOURCE6} .
 
 %postun
 %_postun_userdel snort
-# remove the link if not upgrade
-if [ $1 = 0 ]; then
-    %{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-plain
-fi
-
-%post plain+flexresp
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-plain+flexresp 11
-
-%postun plain+flexresp
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-plain+flexresp
-
-%post mysql
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-mysql 12
-
-%postun mysql
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-mysql
-
-%post mysql+flexresp
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-mysql+flexresp 13
-
-%postun mysql+flexresp
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-mysql+flexresp
-
-%post postgresql
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-postgresql 14
-
-%postun postgresql
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-postgresql
-
-%post postgresql+flexresp
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-postgresql+flexresp 15
-
-%postun postgresql+flexresp
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-postgresql+flexresp
-
-%post bloat
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-bloat 16
-
-%postun bloat
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-bloat
-
-%post inline
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-inline 17
-
-%postun inline
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-inline
-
-%post inline+flexresp
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-inline+flexresp 18
-
-%postun inline+flexresp
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-inline+flexresp
-
-%post prelude
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-prelude 19
-
-%postun prelude
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-prelude
-
-%post prelude+flexresp
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-prelude+flexresp 20
-
-%postun prelude+flexresp
-%{_sbindir}/update-alternatives --remove %{name} %{_sbindir}/%{name}-prelude+flexresp
 
 %files
 %doc %{_datadir}/doc/snort
@@ -278,6 +123,7 @@ fi
 %{_bindir}/snort2lua
 %{_bindir}/u2boat
 %{_bindir}/u2spewfoo
+%{_bindir}/appid_detector_builder.sh
 %{_prefix}/etc/snort
 
 

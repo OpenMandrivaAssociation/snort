@@ -42,12 +42,6 @@ BuildRequires:  pkgconfig(luajit)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(xtables)
 BuildRequires:  pkgconfig(zlib)
-Requires(post,preun,pre,postun):        rpm-helper
-Requires(preun,post):   snort-rules
-Requires:       pcre
-Requires:       pcap
-Requires:       snort-rules
-Suggests:       snortsam
 
 %description
 Snort is a libpcap-based packet sniffer/logger which can be used as a
@@ -104,18 +98,6 @@ cp -a %{SOURCE6} .
 %install
 %make_install -C build
 
-%pre
-%_pre_useradd snort /var/log/snort /bin/false
-
-%post
-%{_sbindir}/update-alternatives --install %{_sbindir}/%{name} %{name} %{_sbindir}/%{name}-plain 10
-%systemd_post snort
-
-%preun
-%systemd_preun snort
-
-%postun
-%_postun_userdel snort
 
 %files
 %doc %{_datadir}/doc/snort

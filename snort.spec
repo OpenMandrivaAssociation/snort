@@ -278,7 +278,7 @@ fi
 %{_bindir}/snort2lua
 %{_bindir}/u2boat
 %{_bindir}/u2spewfoo
-%{_sysconfdir}/snort
+%{_prefix}/etc/snort
 
 
 %files devel

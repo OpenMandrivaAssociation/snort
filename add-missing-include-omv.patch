@@ -1,0 +1,22 @@
+diff -uraN snort3-3.1.65.0/src/js_norm/js_identifier_ctx.h omv-snort3-3.1.65.0/src/js_norm/js_identifier_ctx.h
+--- snort3-3.1.65.0/src/js_norm/js_identifier_ctx.h	2023-07-03 14:15:41.000000000 +0200
++++ omv-snort3-3.1.65.0/src/js_norm/js_identifier_ctx.h	2023-07-15 15:26:36.758006915 +0200
+@@ -20,6 +20,7 @@
+ #ifndef JS_IDENTIFIER_CTX
+ #define JS_IDENTIFIER_CTX
+ 
++#include <cstdint>
+ #include <list>
+ #include <string>
+ #include <unordered_map>
+diff -uraN snort3-3.1.65.0/src/packet_io/sfdaq_config.h omv-snort3-3.1.65.0/src/packet_io/sfdaq_config.h
+--- snort3-3.1.65.0/src/packet_io/sfdaq_config.h	2023-07-03 14:15:41.000000000 +0200
++++ omv-snort3-3.1.65.0/src/packet_io/sfdaq_config.h	2023-07-15 15:25:59.752252502 +0200
+@@ -21,6 +21,7 @@
+ #ifndef SFDAQ_CONFIG_H
+ #define SFDAQ_CONFIG_H
+ 
++#include <cstdint>
+ #include <string>
+ #include <vector>
+ 

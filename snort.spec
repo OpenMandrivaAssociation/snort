@@ -18,6 +18,7 @@ Source100:	%{name}.rpmlintrc
 #Patch0:         snort-lib64.diff
 # (oe) http://www.inliniac.net/files/
 #Patch2:         snort-2.9.7.6-plugins_fix.diff
+Patch3:          add-missing-include-omv.patch
 BuildRequires:  cmake
 BuildRequires:  bison
 BuildRequires:  chrpath
@@ -80,9 +81,7 @@ Requires:       snort = %{version}-%{release}
 This package includes the development files for %{name}.
 
 %prep
-%setup -q -n %{oname}-%{version}
-#patch0 -p0 -b .lib64
-#patch2 -p1 -b .plugins_fix
+%autosetup -n %{oname}-%{version} -p1
 
 # fix pid file path
 /bin/echo "#define _PATH_VARRUN \"%{_var}/run/%{name}\"" >> acconfig.h

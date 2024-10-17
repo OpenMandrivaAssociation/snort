@@ -6,7 +6,7 @@ Version:        3.1.66.0
 Release:        1
 License:        GPLv2+
 Group:          Networking/Other
-Url:            http://www.snort.org/
+Url:            https://www.snort.org/
 Source0:        https://github.com/snort3/snort3/archive/refs/tags/%{version}/%{oname}-%{version}.tar.gz
 #Source1:        http://www.snort.org/dl/current/%{name}-%{version}.tar.gz.
 Source3:        snort.service
